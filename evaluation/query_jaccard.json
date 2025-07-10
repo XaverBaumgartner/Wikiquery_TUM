@@ -1,0 +1,1922 @@
+[
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.8333333333333334
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 1,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.75
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.9
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.9090909090909091
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.022222222222222223
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.8181818181818182
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 1,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.95
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.8181818181818182
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.9090909090909091
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.022222222222222223
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 2,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.9
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.8181818181818182
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.17543859649122806
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.1
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.75
+    },
+    {
+        "iteration": 3,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.8181818181818182
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.75
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.9
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.9090909090909091
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.022222222222222223
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.95
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 4,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.9
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.9090909090909091
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.5
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.75
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.9
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.7142857142857143
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "Children of Johann Sebastian Bach",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 0.022222222222222223
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "List of non-fictional US presidents since 1970",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 0.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_finetune_mcp",
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "jaccard_index": 1.0
+    },
+    {
+        "iteration": 5,
+        "model": "gemini_mcp",
+        "prompt": "List of US presidents",
+        "jaccard_index": 1.0
+    }
+]

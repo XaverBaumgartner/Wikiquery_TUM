@@ -1,0 +1,69 @@
+Grading, iteration 1
+gemini: 16 entries, average Precision: 0.6146, average Recall: 0.5625, 
+        F1 macro: 0.5777, F1 micro: 0.7326, 
+        Global Jaccard Index: 0.5780, Average Jaccard Index: 0.5521
+gemini_finetune: 16 entries, average Precision: 0.1696, average Recall: 0.1875, 
+        F1 macro: 0.1771, F1 micro: 0.5328, 
+        Global Jaccard Index: 0.3631, Average Jaccard Index: 0.1696
+gemini_finetune_mcp: 16 entries, average Precision: 0.4938, average Recall: 0.4326, 
+        F1 macro: 0.4340, F1 micro: 0.6250, 
+        Global Jaccard Index: 0.4545, Average Jaccard Index: 0.4275
+gemini_mcp: 16 entries, average Precision: 0.8580, average Recall: 0.8625, 
+        F1 macro: 0.8598, F1 micro: 0.8776, 
+        Global Jaccard Index: 0.7819, Average Jaccard Index: 0.8474
+
+Grading, iteration 2
+gemini: 16 entries, average Precision: 0.3540, average Recall: 0.3438, 
+        F1 macro: 0.3421, F1 micro: 0.5786, 
+        Global Jaccard Index: 0.4071, Average Jaccard Index: 0.3228
+gemini_finetune: 16 entries, average Precision: 0.2321, average Recall: 0.2500, 
+        F1 macro: 0.2396, F1 micro: 0.5067, 
+        Global Jaccard Index: 0.3393, Average Jaccard Index: 0.2321
+gemini_finetune_mcp: 16 entries, average Precision: 0.4375, average Recall: 0.3451, 
+        F1 macro: 0.3569, F1 micro: 0.4412, 
+        Global Jaccard Index: 0.2830, Average Jaccard Index: 0.3451
+gemini_mcp: 16 entries, average Precision: 0.7827, average Recall: 0.8063, 
+        F1 macro: 0.7929, F1 micro: 0.7885, 
+        Global Jaccard Index: 0.6509, Average Jaccard Index: 0.7776
+
+Grading, iteration 3
+gemini: 16 entries, average Precision: 0.5000, average Recall: 0.4625, 
+        F1 macro: 0.4759, F1 micro: 0.6352, 
+        Global Jaccard Index: 0.4654, Average Jaccard Index: 0.4625
+gemini_finetune: 16 entries, average Precision: 0.2946, average Recall: 0.2812, 
+        F1 macro: 0.2812, F1 micro: 0.5198, 
+        Global Jaccard Index: 0.3512, Average Jaccard Index: 0.2634
+gemini_finetune_mcp: 16 entries, average Precision: 0.3571, average Recall: 0.3187, 
+        F1 macro: 0.3134, F1 micro: 0.3771, 
+        Global Jaccard Index: 0.2324, Average Jaccard Index: 0.3009
+gemini_mcp: 16 entries, average Precision: 0.6809, average Recall: 0.7375, 
+        F1 macro: 0.6910, F1 micro: 0.8071, 
+        Global Jaccard Index: 0.6766, Average Jaccard Index: 0.6715
+
+Grading, iteration 4
+gemini: 16 entries, average Precision: 0.6813, average Recall: 0.6500, 
+        F1 macro: 0.6604, F1 micro: 0.9349, 
+        Global Jaccard Index: 0.8777, Average Jaccard Index: 0.6449
+gemini_finetune: 16 entries, average Precision: 0.1250, average Recall: 0.1250, 
+        F1 macro: 0.1250, F1 micro: 0.3394, 
+        Global Jaccard Index: 0.2044, Average Jaccard Index: 0.1250
+gemini_finetune_mcp: 16 entries, average Precision: 0.4790, average Recall: 0.4389, 
+        F1 macro: 0.4282, F1 micro: 0.7256, 
+        Global Jaccard Index: 0.5693, Average Jaccard Index: 0.4179
+gemini_mcp: 16 entries, average Precision: 0.8267, average Recall: 0.8625, 
+        F1 macro: 0.8390, F1 micro: 0.8655, 
+        Global Jaccard Index: 0.7629, Average Jaccard Index: 0.8162
+
+Grading, iteration 5
+gemini: 16 entries, average Precision: 0.4318, average Recall: 0.4000, 
+        F1 macro: 0.4104, F1 micro: 0.5197, 
+        Global Jaccard Index: 0.3511, Average Jaccard Index: 0.3943
+gemini_finetune: 16 entries, average Precision: 0.2321, average Recall: 0.2500, 
+        F1 macro: 0.2396, F1 micro: 0.5067, 
+        Global Jaccard Index: 0.3393, Average Jaccard Index: 0.2321
+gemini_finetune_mcp: 16 entries, average Precision: 0.5000, average Recall: 0.4389, 
+        F1 macro: 0.4402, F1 micro: 0.5513, 
+        Global Jaccard Index: 0.3805, Average Jaccard Index: 0.4389
+gemini_mcp: 16 entries, average Precision: 0.6761, average Recall: 0.6750, 
+        F1 macro: 0.6753, F1 micro: 0.8406, 
+        Global Jaccard Index: 0.7250, Average Jaccard Index: 0.6656

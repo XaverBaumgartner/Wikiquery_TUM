@@ -1,0 +1,642 @@
+[
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?childLabel\nWHERE {\n  wd:Q1339 wdt:P40 ?child .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n}\nORDER BY ?childLabel\n",
+        "result_size": 20,
+        "benchmark_size": 20,
+        "matching": 20
+    },
+    {
+        "prompt": "List of US presidents",
+        "model": "benchmark",
+        "query": "\nSELECT ?presidentLabel\nWHERE {\n?president wdt:P31 wd:Q5 .\n?president wdt:P39 wd:Q11696 .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "model": "benchmark",
+        "query": "\nSELECT ?presidentLabel\nWHERE {\n?president wdt:P31 wd:Q5 .\n?president wdt:P39 wd:Q11696 .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5 .\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?termStart .\n  OPTIONAL { ?positionStatement pq:P582 ?termEnd . }\n  FILTER (\n    ?termStart >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime ||\n    (\n      ?termStart < \"1970-01-01T00:00:00Z\"^^xsd:dateTime &&\n      ( !BOUND(?termEnd) || ?termEnd >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime )\n    )\n  )\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n  }\n}\nORDER BY ?termStart\n    ",
+        "result_size": 10,
+        "benchmark_size": 10,
+        "matching": 10
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5 .\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?termStart .\n  OPTIONAL { ?positionStatement pq:P582 ?termEnd . }\n  FILTER (\n    ?termStart >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime ||\n    (\n      ?termStart < \"1970-01-01T00:00:00Z\"^^xsd:dateTime &&\n      ( !BOUND(?termEnd) || ?termEnd >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime )\n    )\n  )\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n  }\n}\nORDER BY ?termStart\n    ",
+        "result_size": 10,
+        "benchmark_size": 10,
+        "matching": 10
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "model": "benchmark",
+        "query": "\nSELECT ?presidentLabel ?startTime WHERE {\n?president wdt:P31 wd:Q5.\n?president p:P39 ?positionStatement.\n?positionStatement ps:P39 wd:Q11696.\n?positionStatement pq:P580 ?startTime.\nFILTER (?startTime >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime)\nSERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n}\nORDER BY ?startTime\n",
+        "result_size": 10,
+        "benchmark_size": 10,
+        "matching": 10
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 30,
+        "benchmark_size": 30,
+        "matching": 30
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "model": "benchmark",
+        "query": "\nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n",
+        "result_size": 1,
+        "benchmark_size": 1,
+        "matching": 1
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "model": "benchmark",
+        "query": "\nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n",
+        "result_size": 1,
+        "benchmark_size": 1,
+        "matching": 1
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n\n  wd:Q7085 p:P166 ?bohrAwardStatement .\n  ?bohrAwardStatement ps:P166 wd:Q38104 ;\n                      pq:P585 ?bohrAwardDate .\n\n  wd:Q39246 p:P166 ?feynmanAwardStatement .\n  ?feynmanAwardStatement ps:P166 wd:Q38104 ;\n                         pq:P585 ?feynmanAwardDate .\n\n  FILTER (?awardDate > ?bohrAwardDate && ?awardDate < ?feynmanAwardDate)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 57,
+        "benchmark_size": 57,
+        "matching": 57
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n\n  wd:Q7085 p:P166 ?bohrAwardStatement .\n  ?bohrAwardStatement ps:P166 wd:Q38104 ;\n                      pq:P585 ?bohrAwardDate .\n\n  wd:Q39246 p:P166 ?feynmanAwardStatement .\n  ?feynmanAwardStatement ps:P166 wd:Q38104 ;\n                         pq:P585 ?feynmanAwardDate .\n\n  FILTER (?awardDate > ?bohrAwardDate && ?awardDate < ?feynmanAwardDate)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 57,
+        "benchmark_size": 57,
+        "matching": 57
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?grandchildLabel\nWHERE {\nwd:Q9682 wdt:P40 ?child .\n?child wdt:P40 ?grandchild .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?grandchildLabel\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\n?olympics wdt:P31 wd:Q159821 ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\n\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\n\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\n?olympics wdt:P31 wd:Q82414 ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\n\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\n\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\nVALUES ?olympicType { wd:Q159821 wd:Q82414 }\n?olympics wdt:P31 ?olympicType ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year ?countryLabel\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "benchmark",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\nVALUES ?olympicType { wd:Q159821 wd:Q82414 }\n?olympics wdt:P31 ?olympicType ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year ?countryLabel\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "model": "gemini",
+        "query": "\nSELECT ?child ?childLabel WHERE {\n  wd:Q1339 wdt:P40 ?child .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 20,
+        "benchmark_size": 20,
+        "matching": 20
+    },
+    {
+        "prompt": "List of US presidents",
+        "model": "gemini",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q11696 .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 45,
+        "matching": 0
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "model": "gemini",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q11696 .\n  FILTER NOT EXISTS {\n    ?president wdt:P31 wd:Q95074 .\n  }\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 45,
+        "matching": 0
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "model": "gemini",
+        "query": "\nSELECT ?president ?presidentLabel ?startTime WHERE {\n  ?president wdt:P31 wd:Q11696 .\n  ?president wdt:P580 ?startTime .\n  FILTER (?startTime >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?startTime\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "model": "gemini",
+        "query": "\nSELECT DISTINCT ?president ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5 .\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?startTime .\n  FILTER (YEAR(?startTime) >= 1970)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?startTime\n",
+        "result_size": 9,
+        "benchmark_size": 10,
+        "matching": 9
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "model": "gemini",
+        "query": "\nSELECT ?president ?presidentLabel ?startDate WHERE {\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?startDate .\n  FILTER (?startDate > \"1970-12-31T23:59:59Z\"^^xsd:dateTime) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 11,
+        "benchmark_size": 10,
+        "matching": 10
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "model": "gemini",
+        "query": "\nSELECT ?laureate ?laureateLabel ?year WHERE {\n  ?award wdt:P31 wd:Q38104 .\n  ?award wdt:P585 ?date .\n  BIND (YEAR(?date) AS ?year) .\n  FILTER (?year >= 2000 && ?year <= 2010) .\n  ?laureate wdt:P166 ?award .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year ?laureateLabel\n",
+        "result_size": 0,
+        "benchmark_size": 30,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "model": "gemini",
+        "query": "\nSELECT ?year WHERE {\n  wd:Q7085 wdt:P166 ?award .\n  ?award wdt:P585 ?date .\n  ?award wdt:P31 ?awardType .\n  ?awardType wdt:P279* wd:Q7191 .\n  BIND(YEAR(?date) AS ?year)\n}\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "model": "gemini",
+        "query": "\nSELECT ?year WHERE {\n  wd:Q39246 wdt:P166 ?nobelPrize .\n  ?nobelPrize wdt:P31 wd:Q7191 .\n  ?nobelPrize wdt:P585 ?date .\n  BIND(YEAR(?date) AS ?year)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "model": "gemini",
+        "query": "\nSELECT ?laureate ?laureateLabel WHERE {\n  # Find the Nobel Prize in Physics award statement for Niels Bohr and extract the year\n  wd:Q7085 wdt:P166 ?bohrAwardStatement .\n  ?bohrAwardStatement ps:P166 wd:Q38104 .\n  ?bohrAwardStatement pq:P585 ?bohrAwardDate .\n  BIND (YEAR(?bohrAwardDate) AS ?bohrYear)\n\n  # Find the Nobel Prize in Physics award statement for Richard Feynman and extract the year\n  wd:Q39246 wdt:P166 ?feynmanAwardStatement .\n  ?feynmanAwardStatement ps:P166 wd:Q38104 .\n  ?feynmanAwardStatement pq:P585 ?feynmanAwardDate .\n  BIND (YEAR(?feynmanAwardDate) AS ?feynmanYear)\n\n  # Find all humans who received the Nobel Prize in Physics and their award year\n  ?laureate wdt:P31 wd:Q5 .\n  ?laureate wdt:P166 ?laureateAwardStatement .\n  ?laureateAwardStatement ps:P166 wd:Q38104 .\n  ?laureateAwardStatement pq:P585 ?laureateAwardDate .\n  BIND (YEAR(?laureateAwardDate) AS ?laureateYear)\n\n  # Filter the laureates whose award year is after Niels Bohr's and before Richard Feynman's\n  FILTER (?laureateYear > ?bohrYear && ?laureateYear < ?feynmanYear)\n\n  # Service to get human-readable labels for the results\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?laureateYear ?laureateLabel\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "model": "gemini",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel\nWHERE {\n  # Get Niels Bohr's Nobel Prize date\n  {\n    SELECT ?bohrDate\n    WHERE {\n      wd:Q7085 p:P166 ?bohrAwardStatement .\n      ?bohrAwardStatement ps:P166 wd:Q38104 .\n      ?bohrAwardStatement pq:P585 ?bohrDate .\n    }\n  }\n\n  # Get Richard Feynman's Nobel Prize date\n  {\n    SELECT ?feynmanDate\n    WHERE {\n      wd:Q39246 p:P166 ?feynmanAwardStatement .\n      ?feynmanAwardStatement ps:P166 wd:Q38104 .\n      ?feynmanAwardStatement pq:P585 ?feynmanDate .\n    }\n  }\n\n  # Find all physics Nobel laureates\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n\n  # Filter laureates whose award date is after Bohr's and before Feynman's\n  FILTER (?awardDate > ?bohrDate && ?awardDate < ?feynmanDate)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 57,
+        "benchmark_size": 57,
+        "matching": 57
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "model": "gemini",
+        "query": "\nSELECT ?grandchild ?grandchildLabel WHERE {\n  wd:Q9682 wdt:P40 ?child .\n  ?child wdt:P40 ?grandchild .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  ?event wdt:P31 wd:Q159821 .\n  ?event wdt:P585 ?date .\n  BIND (YEAR(?date) AS ?year) .\n  FILTER (?year >= 2008 && ?year <= 2022) .\n  ?event wdt:P17 ?country .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  ?event wdt:P31 wd:Q108057428 .\n  ?event wdt:P585 ?date .\n  BIND (YEAR(?date) AS ?year) .\n  FILTER (?year >= 2008 && ?year <= 2022) .\n  ?event wdt:P17 ?country .\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n  }\n}\nORDER BY ?year\n",
+        "result_size": 0,
+        "benchmark_size": 4,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  ?event wdt:P31 wd:Q5389 .\n  ?event wdt:P585 ?date .\n  BIND (YEAR(?date) AS ?year) .\n  FILTER (?year >= 2008 && ?year <= 2022) .\n  ?event wdt:P17 ?country .\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n  }\n}\nORDER BY ?year\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini",
+        "query": "\nSELECT DISTINCT ?country ?countryLabel ?year WHERE {\n  { ?event wdt:P31 wd:Q159821 . }\n  UNION\n  { ?event wdt:P31 wd:Q108057428 . }\n  \n  ?event wdt:P17 ?country .\n  ?event wdt:P585 ?date .\n  \n  BIND(YEAR(?date) AS ?year)\n  FILTER(?year >= 2008 && ?year <= 2022)\n  \n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n  }\n}\nORDER BY ?year ?countryLabel\n",
+        "result_size": 4,
+        "benchmark_size": 8,
+        "matching": 4
+    },
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?child ?childLabel WHERE {\n  wd:Q1339 wdt:P40 ?child .\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\".\n  }\n}\n",
+        "result_size": 20,
+        "benchmark_size": 20,
+        "matching": 20
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n  ?president wdt:P39 wd:Q11696 .\n  ?president wdt:P31 wd:Q5 .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?president ?presidentLabel ?startTime ?endTime WHERE {\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?startTime .\n  OPTIONAL { ?positionStatement pq:P582 ?endTime . }\n  ?president wdt:P27 wd:Q30 .\n  FILTER (YEAR(?startTime) >= 1970)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?startTime\n",
+        "result_size": 11,
+        "benchmark_size": 10,
+        "matching": 9
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "model": "gemini_mcp",
+        "query": "\nSELECT DISTINCT ?president ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5;\n             wdt:P39 wd:Q11696.\n  ?president p:P39 ?position_statement.\n  ?position_statement pq:P580 ?start_time.\n  FILTER (?start_time >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 9,
+        "benchmark_size": 10,
+        "matching": 9
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?president ?presidentLabel ?startDate WHERE {\n  ?president wdt:P39 ?positionHeldStatement .\n  ?positionHeldStatement wikibase:directClaim wd:Q11696 . # Q11696 is \"President of the United States\"\n  ?positionHeldStatement pq:P580 ?startDate . # P580 is \"start time\"\n  FILTER (?startDate > \"1970-01-01T00:00:00Z\"^^xsd:dateTime)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?startDate\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?laureate ?laureateLabel ?year WHERE {\n  ?laureate p:P166 ?awardStatement.\n  ?awardStatement ps:P166 wd:Q38104.\n  ?awardStatement pq:P585 ?date.\n  FILTER (YEAR(?date) >= 2000 && YEAR(?date) <= 2010)\n  BIND (YEAR(?date) AS ?year)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year\n",
+        "result_size": 30,
+        "benchmark_size": 30,
+        "matching": 30
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?nobelPrizeLabel ?year WHERE {\n  wd:Q7085 p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q7191 .\n  ?awardStatement pq:P585 ?year .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?awardDate WHERE {\n  wd:Q39246 p:P166 ?statement .\n  ?statement ps:P166 wd:Q38104 .\n  ?statement pq:P585 ?awardDate .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 1,
+        "benchmark_size": 1,
+        "matching": 1
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "model": "gemini_mcp",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel ?prizeYear WHERE {\n  ?laureate wdt:P166 ?award .\n  ?award wdt:P279* wd:Q38104 . # Ensure it's a Nobel Prize in Physics or a subclass\n  ?award pq:P585 ?prizeYear .\n\n  FILTER (YEAR(?prizeYear) > 1922 && YEAR(?prizeYear) < 1965)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n  }\n}\nORDER BY ?prizeYear\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "model": "gemini_mcp",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel ?awardDate\nWHERE {\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n  FILTER (YEAR(?awardDate) > 1922 && YEAR(?awardDate) < 1965)\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\".\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 57,
+        "benchmark_size": 57,
+        "matching": 57
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?grandchild ?grandchildLabel WHERE {\n  wd:Q9682 wdt:P40 ?child .\n  ?child wdt:P40 ?grandchild .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?countryLabel ?year WHERE {\n  ?olympics wdt:P31 wd:Q159821 .\n  ?olympics wdt:P17 ?country .\n  ?olympics wdt:P585 ?pointInTime .\n  BIND(YEAR(?pointInTime) AS ?year)\n  FILTER (?year >= 2008 && ?year <= 2022)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?countryLabel ?year WHERE {\n  ?olympics wdt:P31 wd:Q82414 .\n  ?olympics wdt:P17 ?country .\n  ?olympics wdt:P585 ?time .\n  FILTER (YEAR(?time) >= 2008 && YEAR(?time) <= 2022)\n  BIND(YEAR(?time) AS ?year)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?countryLabel ?year WHERE {\n  ?olympics wdt:P31 wd:Q5389 .\n  ?olympics wdt:P585 ?date .\n  FILTER (YEAR(?date) >= 2008 && YEAR(?date) <= 2022) .\n  ?olympics wdt:P17 ?country .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n  BIND(YEAR(?date) AS ?year)\n}\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?countryLabel ?year WHERE {\n  ?event wdt:P31 ?type.\n  FILTER (?type = wd:Q159821 || ?type = wd:Q82414).\n  ?event wdt:P17 ?country.\n  ?event wdt:P585 ?date.\n  BIND(YEAR(?date) AS ?year).\n  FILTER (?year >= 2008 && ?year <= 2022).\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ?year\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?child ?childLabel WHERE {\n  wd:Q1339 wdt:P40 ?child .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 20,
+        "benchmark_size": 20,
+        "matching": 20
+    },
+    {
+        "prompt": "List of US presidents",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?item ?itemLabel WHERE { ?item wdt:P39 wd:Q11696 . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 63,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?item ?itemLabel WHERE { ?item wdt:P39 wd:Q11696 . ?item wdt:P31 wd:Q5 . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?president ?start_time WHERE { wd:Q11696 wdt:P1308 ?president . ?president wdt:P580 ?start_time . FILTER(YEAR(?start_time) >= 1970) . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } } ORDER BY ASC(?start_time)\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n  ?president wdt:P39 wd:Q11696 .\n  ?president wdt:P31 wd:Q5 .\n  ?president [wdt:term start] ?termStart .\n  FILTER(YEAR(?termStart) >= 1970) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?president rdfs:label ?presidentLabel }\n}\nORDER BY ASC(?termStart)\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?president ?presidentLabel ?startDate WHERE {\n  ?item wdt:P31 wd:Q66975812 .\n  ?item wdt:P1308 ?president .\n  ?item wdt:P580 ?startDate .\n  FILTER(YEAR(?startDate) > 1970) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "model": "gemini_finetune",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel WHERE {\n    ?laureate wdt:P166 ?award_instance .\n    ?award_instance wdt:P166 wd:Q38104 .\n    ?award_instance wdt:P585 ?date .\n    FILTER(YEAR(?date) >= 2000 && YEAR(?date) <= 2010) .\n    SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ASC(?laureateLabel)\nLIMIT 50\n",
+        "result_size": 0,
+        "benchmark_size": 30,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?x ?xLabel WHERE { wd:Q7085 wd:Q66796038 ?s . ?s wd:Q186408 ?x . ?s wd:Q21503252 wd:Q7191 . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?value ?objLabel WHERE {\n  wd:Q39246 wdt:P166 ?obj .\n  ?obj wdt:P31 wd:Q7191 .\n  ?obj pq:P585 ?value .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?obj rdfs:label ?objLabel }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "model": "gemini_finetune",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel WHERE {\n  # Get the date of Niels Bohr's Nobel Prize in Physics\n  [wd:Nobel Prize in Physics 1922] wdt:P585 ?bohr_date .\n\n  # Get the date of Richard Feynman's Nobel Prize in Physics\n  [wd:Nobel Prize in Physics 1965] wdt:P585 ?feynman_date .\n\n  # Find all people who received a Nobel Prize in Physics\n  ?laureate wdt:P166 ?award_item .\n  ?award_item wdt:P31 wd:Q38104 .\n  ?award_item wdt:P585 ?award_date .\n\n  # Filter laureates whose award date is after Bohr's and before Feynman's\n  FILTER(?award_date > ?bohr_date) .\n  FILTER(?award_date < ?feynman_date) .\n\n  # Get the human-readable label for the laureate\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\" .\n    ?laureate rdfs:label ?laureateLabel .\n  }\n}\nORDER BY ASC(?laureateLabel)\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "model": "gemini_finetune",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel WHERE {\n  # Get Niels Bohr's Nobel Prize in Physics award date\n  BIND((SELECT ?date WHERE { wd:Q7085 p:P166 ?s . ?s ps:P166 wd:Q38104 . ?s pq:P585 ?date }) AS ?bohrDate)\n\n  # Get Richard Feynman's Nobel Prize in Physics award date\n  BIND((SELECT ?date WHERE { wd:Q39246 p:P166 ?s . ?s ps:P166 wd:Q38104 . ?s pq:P585 ?date }) AS ?feynmanDate)\n\n  # Find all humans who received the Nobel Prize in Physics\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?s .\n  ?s ps:P166 wd:Q38104 ;\n     pq:P585 ?awardDate .\n\n  # Filter by date range: after Bohr and before Feynman\n  FILTER(?awardDate > ?bohrDate && ?awardDate < ?feynmanDate)\n\n  # Get laureate label in English\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?laureate rdfs:label ?laureateLabel }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?grandchild ?grandchildLabel WHERE {\n  ?grandchild wdt:P22 ?child .\n  ?child wdt:P22 wd:Q194540 .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  ?event wdt:P31 wd:Q159821 .\n  ?event wdt:P17 ?country .\n  ?event wdt:P585 ?pointInTime .\n  BIND(YEAR(?pointInTime) AS ?year) .\n  FILTER(?year >= 2008 && ?year <= 2022) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 4,
+        "benchmark_size": 4,
+        "matching": 4
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  ?event wdt:P31 wd:Q108057428 .\n  ?event wdt:P585 ?time .\n  BIND(YEAR(?time) AS ?year) .\n  ?event wdt:P17 ?country .\n  FILTER(?year >= 2008 && ?year <= 2022) .\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\".\n    ?country rdfs:label ?countryLabel .\n  }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 4,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?countryLabel ?year WHERE { ?event wdt:P31 wd:Q5389 . ?event wdt:P17 ?country . ?event wdt:P585 ?date . BIND(YEAR(?date) AS ?year) . FILTER(?year >= 2008 && ?year <= 2022) . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" . ?country rdfs:label ?countryLabel } }\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE { { wd:Q159821 wdt:P31 ?event . ?event wdt:P17 ?country . ?event wdt:P585 ?date . FILTER(YEAR(?date) >= 2008 && YEAR(?date) <= 2022) } UNION { wd:Q108057428 wdt:P31 ?event . ?event wdt:P17 ?country . ?event wdt:P585 ?date . FILTER(YEAR(?date) >= 2008 && YEAR(?date) <= 2022) } BIND(YEAR(?date) AS ?year) SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?country rdfs:label ?countryLabel . } }\n",
+        "result_size": 0,
+        "benchmark_size": 8,
+        "matching": 0
+    },
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?child ?childLabel WHERE { wd:Q1339 wdt:P40 ?child . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 20,
+        "benchmark_size": 20,
+        "matching": 20
+    },
+    {
+        "prompt": "List of US presidents",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?item ?itemLabel WHERE { wd:Q11696 wdt:P1308 ?item . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 1,
+        "benchmark_size": 45,
+        "matching": 1
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?item ?itemLabel WHERE { ?item wdt:P39 wd:Q11696 . ?item wdt:P31 wd:Q5 . FILTER(?item != wd:Q125680992) . SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". } }\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?president ?presidentLabel ?start_time WHERE {\n  ?president p:P39 ?s .\n  ?s ps:P39 wd:Q11696 .\n  ?s pq:P580 ?start_time .\n  FILTER(xsd:dateTime(?start_time) >= \"1970-01-01T00:00:00Z\") .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" . }\n}\nORDER BY ASC(?start_time)\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n    ?president wdt:P39 ?s .\n    ?s ps:P39 wd:Q11696 .\n    ?s pq:P580 ?start_time .\n    ?president wdt:P31 wd:Q5 .\n    FILTER(YEAR(?start_time) >= 1970) .\n    SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nORDER BY ASC(?start_time)\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?president ?presidentLabel ?start_date WHERE {\n  ?president [position held] ?s .\n  ?s [position held] wd:Q11696 .\n  ?s [start time] ?start_date .\n  FILTER(YEAR(?start_date) > 1970) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?president rdfs:label ?presidentLabel }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 10,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?laureate ?laureateLabel WHERE {\n  ?laureate p:P166 ?s .\n  ?s ps:P166 wd:Q38104 .\n  ?s pq:P585 ?point_in_time .\n  FILTER(YEAR(?point_in_time) >= 2000 && YEAR(?point_in_time) <= 2010) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 30,
+        "benchmark_size": 30,
+        "matching": 30
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?award ?awardLabel ?pointInTime WHERE {\n  wd:Q7085 wdt:P166 ?s .\n  ?s P166 ?award .\n  ?s P585 ?pointInTime .\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"en\".\n  }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 1,
+        "matching": 0
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?value WHERE { wd:Q39246 p:P166 ?s . ?s ps:P166 wd:Q38104 . ?s pq:P585 ?value }\n",
+        "result_size": 1,
+        "benchmark_size": 1,
+        "matching": 1
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT DISTINCT ?sbj ?sbjLabel ?award_date WHERE {\n  ?sbj [award received] ?s .\n  ?s [award received] [Nobel Prize in Physics] .\n  ?s [point in time] ?award_date .\n  FILTER(YEAR(?award_date) > 1922 && YEAR(?award_date) < 1965) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n}\nORDER BY ASC(?award_date)\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT DISTINCT ?laureate ?laureateLabel WHERE {\n  ?laureate wdt:P166 ?s .\n  ?s ps:P166 wd:Q38104 .\n  ?s pq:P585 ?awardDate .\n  FILTER (YEAR(?awardDate) > 1922 && YEAR(?awardDate) < 1965)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?laureate rdfs:label ?laureateLabel }\n}\nORDER BY ?laureateLabel\n",
+        "result_size": 0,
+        "benchmark_size": 57,
+        "matching": 0
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?grandchild ?grandchildLabel WHERE {\n  wd:Q9682 wdt:P40 ?child .\n  ?child wdt:P40 ?grandchild .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  wd:Q159821 wdt:P276 ?s .\n  ?s wdt:P276 ?country .\n  ?s wdt:P585 ?year .\n  FILTER(YEAR(?year) >= 2008 && YEAR(?year) <= 2022) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\nGROUP BY ?country ?countryLabel ?year\nORDER BY ASC(?year)\n",
+        "result_size": 0,
+        "benchmark_size": 4,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?event ?eventLabel ?country ?countryLabel WHERE {\n  ?event [instance of] wd:Q82414 .\n  ?event wdt:P17 ?country .\n  ?event [point in time] ?time .\n  FILTER(YEAR(?time) >= 2008 && YEAR(?time) <= 2022) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" . }\n}\n",
+        "result_size": 0,
+        "benchmark_size": 4,
+        "matching": 0
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?country ?countryLabel ?pointInTime WHERE {\n  ?event wdt:P31 ?olympicType .\n  FILTER(?olympicType = wd:Q159821 || ?olympicType = wd:Q82414) .\n  ?event wdt:P17 ?country .\n  ?event wdt:P585 ?pointInTime .\n  FILTER(YEAR(?pointInTime) >= 2008 && YEAR(?pointInTime) <= 2022) .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" . ?country rdfs:label ?countryLabel }\n}\nGROUP BY ?country ?countryLabel ?pointInTime\nORDER BY ASC(?pointInTime)\nLIMIT 100\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "model": "gemini_finetune_mcp",
+        "query": "\nSELECT ?country ?countryLabel ?year WHERE {\n  { ?event wdt:P31 wd:Q159821 . }\n  UNION\n  { ?event wdt:P31 wd:Q82414 . }\n  ?event wdt:P585 ?pointInTime .\n  FILTER(YEAR(?pointInTime) >= 2008 && YEAR(?pointInTime) <= 2022)\n  ?event wdt:P17 ?country .\n  BIND(YEAR(?pointInTime) AS ?year)\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?country rdfs:label ?countryLabel . }\n}\nORDER BY ASC(?year)\n",
+        "result_size": 8,
+        "benchmark_size": 8,
+        "matching": 8
+    },
+    {
+        "prompt": "List of US presidents",
+        "model": "gemini_mcp",
+        "query": "\nSELECT ?president ?presidentLabel WHERE {\n  ?president wdt:P39 wd:Q11696 .\n  ?president wdt:P31 wd:Q5 .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". }\n}\n",
+        "result_size": 45,
+        "benchmark_size": 45,
+        "matching": 45
+    }
+]
