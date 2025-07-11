@@ -140,7 +140,12 @@ The web app is currently being hosted on [Wikiquery.org](https://www.wikiquery.o
 # Running the code yourself
 __Prerequisites__
 
-You will need your own Google API keys, since we cannot publish ours to Gihub due to scrapers. For a key to the finetuned model, just write us a mail. To use your own key for plain gemini, replace the 'REPLACE THIS' text in gemini.py with your key. For your own vertex API model, do the same with the credentials.json file (either in [`backend/credentials.json`](backend/credentials.json) or in [`credentials.json`](credentials.json), as different python interpreters handle relative paths differently. For us, hosting with the built-in flask server required one location, while the gunicorn server required the other).
+You will need your own Google API keys, since we cannot publish ours to Gihub due to scrapers. For a key to the finetuned model, just write us a mail. To use your own key for plain gemini, replace the 'REPLACE THIS' text in gemini.py with your key. For your own vertex API model, do the same with the credentials.json file (either in [`backend/credentials.json`](backend/credentials.json) or in [`credentials.json`](credentials.json), as different python interpreters handle relative paths differently. For us, hosting with the built-in flask server required one location, while the gunicorn server required the other).  
+In [`App.tsx`](frontend/src/App.tsx), 
+```TypeScript
+const backendUrl = "https://api.wikiquery.org";
+```
+needs to be updated with the URL of your backend.
 
 __Frontend:__
 
