@@ -1,3 +1,6 @@
+# About the project
+This project was completed as part of the Practical Course 'Data Engineering' within the Data Engineering Research Group at the TUM School of Computation, Information and Technology (Technical University of Munich). For a full explanation, our motivation, the research questions and main findings, please consult the [`Written Report`](</Written Report: Wikiquery.pdf>).
+
 # Raw grading Results
 This json includes the scores (average precision, average recall, F1 micro and macro, global and average Jaccard index) the models were able to reach in each of the 5 iterations:
 ```json
@@ -49,36 +52,75 @@ gemini is significantly better than gemini_finetune (p-value: 0.0059)
 
 This shows that Gemini (MCP) is better than all other models in both important metrics for this grading (Average Jaccard & F1 macro) with p < 0.005, which is far lower than the usual p < 0.5 threshhold for statistical significance.
 
+---
 
 The following are the query responses of all the models for all testing prompts. They were graded by running them and comparing their results to those of the benchmark queries, calculating the size of the intersect of the two sets and dividing it by the size of their union (so-called 'Jaccard index').
 
 ![Stat jaccard](<evaluation/Jaccard Index for Prompts by Model across 5 Iterations.jpg>)
 
-The testing prompts are:
-```Prompts
-1.  Children of Johann Sebastian Bach
-2.  List of US presidents
-3.  List of non-fictional US presidents
-4.  List of US presidents since 1970
-5.  List of non-fictional US presidents since 1970
-6.  For all US presidencies that started after 1970, give the serving president and the start date
-7.  list all physics nobel laureates from 2000 to 2010
-8.  When did Niels Bohr win a Nobel Prize?
-9.  When did Richard Feynman win a Nobel Prize?
-10. list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman
-11. list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n
-12. list the grand children of Queen Elisabeth II
-13. list the countries where the Summer Olympics were held between 2008 and 2022, along with the year
-14. list the countries where the Winter Olympics were held between 2008 and 2022, along with the year
-15. list the countries where the Olympics were held between 2008 and 2022, along with the year
-16. list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year
-```
+__Testing Prompts__
 
+These are the prompts used for testing, along with an explanations of the challenges or specific requirements for each.
+
+1.  **Children of Johann Sebastian Bach**  
+    *Explanation:* This query is an example from the Wikidata tutorial page and is likely included in most LLMs' training data.
+
+2.  **List of US presidents**  
+    *Explanation:* Fictional presidents should not be included. This requires filtering for instances of "human" or similar properties.
+
+3.  **List of non-fictional US presidents**  
+    *Explanation:* Similar to 'List of US presidents,' but this prompt is more explicit to increase the LLM's chances of understanding the task's filtering requirement.
+
+5.  **List of US presidents since 1970**  
+    *Explanation:* This requires filtering based on time constraints (start of term, not birthdate). Richard Nixon should be included even though he was elected prior to 1970. This prompt requires an understanding of context-dependent filtering.
+
+6.  **List of non-fictional US presidents since 1970**  
+    *Explanation:* See the explanation for "List of US presidents since 1970" regarding time constraints and contextual filtering, combined with the "non-fictional" requirement.
+
+7.  **For all US presidencies that started after 1970, give the serving president and the start date**  
+    *Explanation:* This prompt should include Donald Trump twice, as it asks for "presidencies" rather than distinct "presidents," which is different from the previous queries.
+
+8.  **List all physics Nobel laureates from 2000 to 2010**  
+    *Explanation:* This requires understanding time intervals, specifically that "2000" refers to the year.
+
+9.  **When did Niels Bohr win a Nobel Prize?**  
+    *Explanation:* This requires understanding that entities are not instances of their own class. Therefore, filtering by `instanceOf` 'Nobel Prize in Physics' will not work, while constructs like `subclassOf` 'Nobel Prize' are appropriate.
+
+10.  **When did Richard Feynman win a Nobel Prize?**  
+    *Explanation:* See the explanation for Niels Bohr; it presents the same challenge regarding class instance relationships.
+
+11. **List all physics Nobel laureates who won their prize after Niels Bohr but before Richard Feynman**  
+    *Explanation:* This is a high-complexity query. It requires subdividing the problem into multiple parts, solving each part (e.g., finding Bohr's Nobel date, Feynman's Nobel date), and then combining the results to filter the list of laureates.
+
+12. **List all physics Nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: `SELECT ?date WHERE { wd:Q7085 p:P166 ?statement . ?statement ps:P166 ?award . ?award wdt:P279 wd:Q7191 . ?statement pq:P585 ?date . }`, this query gives Richard Feynmans date: `SELECT ?date WHERE { wd:Q39246 p:P166 ?statement . ?statement ps:P166 ?award . ?award wdt:P279 wd:Q7191 . ?statement pq:P585 ?date . }`, and this query gives all physics Nobel laureates from 2000 to 2010: `SELECT DISTINCT ?laureateLabel WHERE { ?laureate wdt:P31 wd:Q5 ; p:P166 ?awardStatement . ?awardStatement ps:P166 wd:Q38104 ; pq:P585 ?awardDate . FILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010) SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } } ORDER BY ?awardDate ?laureateLabel`**  
+    *Explanation:* This query still requires combining different partial results, but it provides the necessary sub-queries, thereby reducing the need for the LLM to subdivide or solve any problems independently.
+
+13. **List the grandchildren of Queen Elizabeth II**  
+    *Explanation:* This requires understanding that "grandchild" is not a direct property of the entity. Instead, it's a relationship that requires two steps: first finding the children, then finding their children.
+
+14. **List the countries where the Summer Olympics were held between 2008 and 2022, along with the year**  
+    *Explanation:* This prompt requests two different properties (country and year) of the same entity (Summer Olympics events).
+
+15. **List the countries where the Winter Olympics were held between 2008 and 2022, along with the year**  
+    *Explanation:* Similar to the previous prompt, this also requests two different properties (country and year) of the same entity (Winter Olympics events).
+
+16. **List the countries where the Olympics were held between 2008 and 2022, along with the year**  
+    *Explanation:* This query requires understanding that "Olympics" can refer to both Summer and Winter Olympics, and both types should be included in the results.
+
+17. **List the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year**  
+    *Explanation:* Similar to the previous prompt, this also requires understanding that both Summer and Winter Olympics should be included. However, it provides a slight hint to the LLM by explicitly mentioning "Summer- or Winter Olympics."
+
+---
 The only results with no matches are empty results.
 
 For all this data, compare [`grade.py`](evaluation/grade.py)
 
-
+The benchmark queries and the model responses are available in the `sqlite3` database files in the evaluation folder:  
+[`eval 1.db`](<evaluation/eval 1.db>) for the 1st iteration  
+[`eval 2.db`](<evaluation/eval 2.db>) for the 2nd iteration  
+[`eval 3.db`](<evaluation/eval 3.db>) for the 3rd iteration  
+[`eval 4.db`](<evaluation/eval 4.db>) for the 4th iteration  
+[`eval 5.db`](<evaluation/eval 5.db>) for the 5th iteration  
 
 # Code
 
