@@ -156,7 +156,7 @@ gemini_mcp > gemini (p=0.0033)
 gemini > gemini_finetune (p=0.0109)  
 gemini_mcp > gemini_finetune_mcp (p=0.0150)  
 ```
-This means that the finetuning really did hurt the model's ability to write sensible queries that return accurate and precise results, and that the finetuned models' lower scores can not be explained away with erroneous queries that may or may not result from being in the wrong format (Not all malformed queries were caused by ill-formatted placeholders!).
+This means that the finetuning really did hurt the model's ability to write sensible queries that return accurate and precise results, and that the finetuned models' lower scores can not be explained away with erroneous queries that may or may not result from being in the wrong format. Not all malformed queries were caused by ill-formatted placeholders, yet the non-finetuned models never generated a malformed query.
 
 ---
 
