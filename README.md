@@ -112,7 +112,7 @@ These are the prompts used for testing, along with explanations of the challenge
 16. **List the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year**  
     *Explanation:* Similar to the previous prompt, this also requires understanding that both Summer and Winter Olympics should be included. However, it provides a slight hint to the LLM by explicitly mentioning "Summer- or Winter Olympics."
 
-It can easily be seen that most queries solve the problem either perfectly or not at all, while partially correct results are quite rare.  
+It can easily be seen that most queries solve the problem either perfectly or not at all, the results are not normally distributed.  
 The only results with no matches are empty results, which suggests that a model fundamentally misunderstanding the user’s intent and looking for different data entirely is not currently a bottleneck in LLM natural language to SPARQL translation.
 
 ---
