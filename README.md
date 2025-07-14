@@ -117,7 +117,7 @@ The only results with no matches are empty results, which suggests that a model 
 
 ---
 
-The training data used to finetune the models is given in a formt containing natural language placeholders
+The training data used to finetune the models is given in a format containing natural language placeholders
 ```json
 {
    "input": "Is Kevin Costner the owner of Fielders Stadium?",
@@ -128,15 +128,15 @@ while a real, corresponding SPARQL query looks like this:
 ```sparql
 ASK WHERE { wd:Q11930 wdt:P1830 wd:Q5447154 }
 ```
-Since the prefixes, like wd: or pq:, carry semantic meaning, it is not possible for a post-processing script to infer them. Therefore, the finetuned model is prompted to generate responses in the format 
+Since the prefixes, like wd: or pq:, carry semantic meaning, it is not possible for our post-processing script to infer them when injecting the IDs. Therefore, for the Gemini (Finetuned) approach, the model is prompted to generate responses in the format 
 ```sparql
 ASK WHERE { wd:[Kevin Costner] wdt:[owner of] wd:[Fielders Stadium] }
 ```
-This means that, for the Gemini (Finetuned) option, there is a slight format difference between the data it was trained on and the data it is supposed to generate.  
+so there is a slight format difference between the format of the data it was trained on and that it is supposed to generate.  
 The Finetune (MCP) model will generate complete SPARQL queries in their final format, as it can do its own entity matching. It, too, uses the model trained on this data, as finetuning it with complete SPARQL queries containing IDs that have no meaning without knowing what entities they stand for is rather pointless.  
 
-Sometimes, the finetuned models act against their given instructions and return queries in the wrong format. For example, Finetune (MCP) will sometimes answer with queries containing placeholders instead of actual IDs, leading to invalid queries that fail upon execution and are therefore treated like queries with empty results.
-This, of course, raises the question of whether the finetuned models are just as performant as the other ones, with the loss of performance being down to the format difference.  
+Sometimes, the finetuned models act against their given instructions and return queries in the wrong format: Finetune (MCP) will sometimes answer with queries containing placeholders instead of actual IDs, and Gemini (Finetuned) will generate queries with missing prefixes. These will fail upon execution and are therefore treated like queries with empty results.  
+This, of course, raises the question of whether the finetuned models are just as performant as the other ones, with the lower grades being results of invalid query generation caused by the format difference.  
 Finetune errors (iteration : number of errors): `{1: 3, 2: 5, 3: 2, 4: 2, 5: 3}`  
 Finetune MCP errors (iteration : number of errors): `{1: 3, 2: 5, 3: 5, 4: 7, 5: 4}`  
 Recalculating the average jaccard indices, excluding these erroneous queries, gives the following results for each iteration:
@@ -156,7 +156,7 @@ gemini_mcp > gemini (p=0.0033)
 gemini > gemini_finetune (p=0.0109)  
 gemini_mcp > gemini_finetune_mcp (p=0.0150)  
 ```
-This means that the finetuning really did hurt the model's ability to write sensible queries that return accurate and precise results, and that the finetuned models' lower scores can not explained away with erroneous queries that may or may not result from being in the wrong format.
+This means that the finetuning really did hurt the model's ability to write sensible queries that return accurate and precise results, and that the finetuned models' lower scores can not be explained away with erroneous queries that may or may not result from being in the wrong format (Not all malformed queries were caused by ill-formatted placeholders!).
 
 ---
 
