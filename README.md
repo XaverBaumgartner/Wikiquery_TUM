@@ -230,4 +230,4 @@ Lc-quad 2.0: A large dataset for complex question answering over wikidata and db
 In Proceedings of the 18th International Semantic Web Conference (ISWC).
 Springer, 2019.
 ```
-We are using the llm_translation column as the input and the sparql_wikidata column as an output. The dataset we used for finetuning can be found in [instruction.json](other/instruction.json)
+We are using the llm_translation column as the input and the sparql_wikidata column as an output. The resulting dataset we used for finetuning can be found in [instruction.json](other/instruction.json).
