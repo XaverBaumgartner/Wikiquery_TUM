@@ -113,7 +113,7 @@ These are the prompts used for testing, along with explanations of the challenge
     *Explanation:* Similar to the previous prompt, this also requires understanding that both Summer and Winter Olympics should be included. However, it provides a slight hint to the LLM by explicitly mentioning "Summer- or Winter Olympics."
 
 It can easily be seen that most queries solve the problem either perfectly or not at all, while partially correct results are quite rare.  
-The only results with no matches are empty results, which suggests that a model fundamentally misunderstanding the user’s intent is not currently a bottleneck in LLM natural language to SPARQL translation.
+The only results with no matches are empty results, which suggests that a model fundamentally misunderstanding the user’s intent and looking for different data entirely is not currently a bottleneck in LLM natural language to SPARQL translation.
 
 ---
 
