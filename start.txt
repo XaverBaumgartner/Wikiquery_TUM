@@ -1,0 +1,10 @@
+See logs live
+    sudo journalctl -u wikiquerybackend -f
+Kill processes
+    sudo pkill -f "python" & sudo pkill -f "cloudflared"
+Show running network processes
+    sudo netstat -tulnp
+Restart Apache 
+    sudo systemctl restart apache2
+Restart backend 
+    sudo systemctl restart wikiquerybackend.service

@@ -1,0 +1,82 @@
+[
+    {
+        "prompt": "Children of Johann Sebastian Bach",
+        "query": "\nSELECT DISTINCT ?childLabel\nWHERE {\n  wd:Q1339 wdt:P40 ?child .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n}\nORDER BY ?childLabel\n",
+        "explanation": "This query is the example on the Wikidata tutorial page and therefore probably included in most LLMs training data."
+    },
+    {
+        "prompt": "List of US presidents",
+        "query": "\nSELECT ?presidentLabel\nWHERE {\n?president wdt:P31 wd:Q5 .\n?president wdt:P39 wd:Q11696 .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\n",
+        "explanation": "Fictional presidents should not be included, for example by filtering for instance of human."
+    },
+    {
+        "prompt": "List of non-fictional US presidents",
+        "query": "\nSELECT ?presidentLabel\nWHERE {\n?president wdt:P31 wd:Q5 .\n?president wdt:P39 wd:Q11696 .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\n",
+        "explanation": "Like 'List of US presidents', but more explicit to increase LLM's chances of understanding the task"
+    },
+    {
+        "prompt": "List of US presidents since 1970",
+        "query": "\nSELECT DISTINCT ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5 .\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?termStart .\n  OPTIONAL { ?positionStatement pq:P582 ?termEnd . }\n  FILTER (\n    ?termStart >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime ||\n    (\n      ?termStart < \"1970-01-01T00:00:00Z\"^^xsd:dateTime &&\n      ( !BOUND(?termEnd) || ?termEnd >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime )\n    )\n  )\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n  }\n}\nORDER BY ?termStart\n    ",
+        "explanation": "Filtering for time constraints that are not explicitly mentioned: Should be start of term, not birthdate. Nixon is included even though he was elected prior to 1970. Requires understanding of context-dependent filtering."
+    },
+    {
+        "prompt": "List of non-fictional US presidents since 1970",
+        "query": "\nSELECT DISTINCT ?presidentLabel WHERE {\n  ?president wdt:P31 wd:Q5 .\n  ?president p:P39 ?positionStatement .\n  ?positionStatement ps:P39 wd:Q11696 .\n  ?positionStatement pq:P580 ?termStart .\n  OPTIONAL { ?positionStatement pq:P582 ?termEnd . }\n  FILTER (\n    ?termStart >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime ||\n    (\n      ?termStart < \"1970-01-01T00:00:00Z\"^^xsd:dateTime &&\n      ( !BOUND(?termEnd) || ?termEnd >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime )\n    )\n  )\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n  }\n}\nORDER BY ?termStart\n    ",
+        "explanation": "See above"
+    },
+    {
+        "prompt": "For all US presidencies that started after 1970, give the serving president and the start date",
+        "query": "\nSELECT ?presidentLabel ?startTime WHERE {\n?president wdt:P31 wd:Q5.\n?president p:P39 ?positionStatement.\n?positionStatement ps:P39 wd:Q11696.\n?positionStatement pq:P580 ?startTime.\nFILTER (?startTime >= \"1970-01-01T00:00:00Z\"^^xsd:dateTime)\nSERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n}\nORDER BY ?startTime\n",
+        "explanation": "This should include Donald Trump twice, different to the previous queries which asked for presidents, not presidencies."
+    },
+    {
+        "prompt": "list all physics nobel laureates from 2000 to 2010",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "explanation": "Requires understanding of time Intervals, once again not explicitly stating that 2000 is the year"
+    },
+    {
+        "prompt": "When did Niels Bohr win a Nobel Prize?",
+        "query": "\nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n",
+        "explanation": "Requires understanding that entities are not instances of their own class, so 'instanceOf' 'Nobel Prize in Physics' does not work, while constructs like 'subclassOf' 'Nobel Prize' do."
+    },
+    {
+        "prompt": "When did Richard Feynman win a Nobel Prize?",
+        "query": "\nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n",
+        "explanation": "See same entry for Niels Bohr"
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n\n  wd:Q7085 p:P166 ?bohrAwardStatement .\n  ?bohrAwardStatement ps:P166 wd:Q38104 ;\n                      pq:P585 ?bohrAwardDate .\n\n  wd:Q39246 p:P166 ?feynmanAwardStatement .\n  ?feynmanAwardStatement ps:P166 wd:Q38104 ;\n                         pq:P585 ?feynmanAwardDate .\n\n  FILTER (?awardDate > ?bohrAwardDate && ?awardDate < ?feynmanAwardDate)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "explanation": "High Complexity: Requires subdividing the problem into multiple parts, solving them, and then combining the results."
+    },
+    {
+        "prompt": "list all physics nobel laureates who won their prize after Niels Bohr but before Richard Feynman! This query gives Niels Bohrs date: \nSELECT ?date\nWHERE {\nwd:Q7085 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, this query gives Richard Feynmans date: \nSELECT ?date\nWHERE {\nwd:Q39246 p:P166 ?statement .\n?statement ps:P166 ?award .\n?award wdt:P279 wd:Q7191 .\n?statement pq:P585 ?date .\n}\n, and this query gives all physics nobel laureates from 2000 to 2010: \nSELECT DISTINCT ?laureateLabel\nWHERE {\n?laureate wdt:P31 wd:Q5 ;\np:P166 ?awardStatement . \n?awardStatement ps:P166 wd:Q38104 ;\npq:P585 ?awardDate .\nFILTER (YEAR(?awardDate) >= 2000 && YEAR(?awardDate) <= 2010)\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "query": "\nSELECT DISTINCT ?laureateLabel\nWHERE {\n  ?laureate wdt:P31 wd:Q5 ;\n            p:P166 ?awardStatement .\n  ?awardStatement ps:P166 wd:Q38104 ;\n                  pq:P585 ?awardDate .\n\n  wd:Q7085 p:P166 ?bohrAwardStatement .\n  ?bohrAwardStatement ps:P166 wd:Q38104 ;\n                      pq:P585 ?bohrAwardDate .\n\n  wd:Q39246 p:P166 ?feynmanAwardStatement .\n  ?feynmanAwardStatement ps:P166 wd:Q38104 ;\n                         pq:P585 ?feynmanAwardDate .\n\n  FILTER (?awardDate > ?bohrAwardDate && ?awardDate < ?feynmanAwardDate)\n\n  SERVICE wikibase:label {\n    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n  }\n}\nORDER BY ?awardDate ?laureateLabel\n",
+        "explanation": "Still requires combining different partial results, but not subdividing or solving any problem(s)."
+    },
+    {
+        "prompt": "list the grand children of Queen Elisabeth II",
+        "query": "\nSELECT DISTINCT ?grandchildLabel\nWHERE {\nwd:Q9682 wdt:P40 ?child .\n?child wdt:P40 ?grandchild .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n}\n}\nORDER BY ?grandchildLabel\n",
+        "explanation": "Requires understanding that grandchild is not a direct property of the entity, but rather a relationship that requires two steps: first finding children, then finding their children."
+    },
+    {
+        "prompt": "list the countries where the Summer Olympics were held between 2008 and 2022, along with the year",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\n?olympics wdt:P31 wd:Q159821 ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\n\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\n\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year\n",
+        "explanation": "request two different properties of the same entity"
+    },
+    {
+        "prompt": "list the countries where the Winter Olympics were held between 2008 and 2022, along with the year",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\n?olympics wdt:P31 wd:Q82414 ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\n\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\n\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year\n",
+        "explanation": "request two different properties of the same entity"
+    },
+    {
+        "prompt": "list the countries where the Olympics were held between 2008 and 2022, along with the year",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\nVALUES ?olympicType { wd:Q159821 wd:Q82414 }\n?olympics wdt:P31 ?olympicType ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year ?countryLabel\n",
+        "explanation": "Requires understanding that Olympics can be Summer or Winter Olympics, and that both should be included in the results."
+    },
+    {
+        "prompt": "list the countries where the Summer- or Winter Olympics were held between 2008 and 2022, along with the year",
+        "query": "\nSELECT DISTINCT ?countryLabel ?year WHERE {\nVALUES ?olympicType { wd:Q159821 wd:Q82414 }\n?olympics wdt:P31 ?olympicType ;\nwdt:P585 ?date ;\nwdt:P17 ?country .\nBIND(YEAR(?date) AS ?year) .\nFILTER (?year >= 2008 && ?year <= 2022) .\nSERVICE wikibase:label {\nbd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\" .\n}\n}\nORDER BY ?year ?countryLabel\n",
+        "explanation": "Requires understanding that Olympics can be Summer or Winter Olympics, and that both should be included in the results, but gives a little help by hinting at this."
+    }
+]

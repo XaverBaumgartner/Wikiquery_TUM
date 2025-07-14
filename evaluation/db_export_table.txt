@@ -1,0 +1,830 @@
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| prompt                                   | model               | query                                    |   result_size |   benchmark_size |   matching |
++==========================================+=====================+==========================================+===============+==================+============+
+| Children of Johann Sebastian Bach        | benchmark           | SELECT DISTINCT ?childLabel WHERE {      |            20 |               20 |         20 |
+|                                          |                     | wd:Q1339 wdt:P40 ?child .   SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?childLabel                 |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents                    | benchmark           | SELECT ?presidentLabel WHERE {           |            45 |               45 |         45 |
+|                                          |                     | ?president wdt:P31 wd:Q5 . ?president    |               |                  |            |
+|                                          |                     | wdt:P39 wd:Q11696 . SERVICE              |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | benchmark           | SELECT ?presidentLabel WHERE {           |            45 |               45 |         45 |
+|                                          |                     | ?president wdt:P31 wd:Q5 . ?president    |               |                  |            |
+|                                          |                     | wdt:P39 wd:Q11696 . SERVICE              |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents since 1970         | benchmark           | SELECT DISTINCT ?presidentLabel WHERE {  |            10 |               10 |         10 |
+|                                          |                     | ?president wdt:P31 wd:Q5 .   ?president  |               |                  |            |
+|                                          |                     | p:P39 ?positionStatement .               |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696 .    |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?termStart .  |               |                  |            |
+|                                          |                     | OPTIONAL { ?positionStatement pq:P582    |               |                  |            |
+|                                          |                     | ?termEnd . }   FILTER (     ?termStart   |               |                  |            |
+|                                          |                     | >= "1970-01-01T00:00:00Z"^^xsd:dateTime  |               |                  |            |
+|                                          |                     | ||     (       ?termStart <              |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime &&  |               |                  |            |
+|                                          |                     | ( !BOUND(?termEnd) || ?termEnd >=        |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime )   |               |                  |            |
+|                                          |                     | )   )   SERVICE wikibase:label {         |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language        |               |                  |            |
+|                                          |                     | "[AUTO_LANGUAGE],en" .   } } ORDER BY    |               |                  |            |
+|                                          |                     | ?termStart                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | benchmark           | SELECT DISTINCT ?presidentLabel WHERE {  |            10 |               10 |         10 |
+| since 1970                               |                     | ?president wdt:P31 wd:Q5 .   ?president  |               |                  |            |
+|                                          |                     | p:P39 ?positionStatement .               |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696 .    |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?termStart .  |               |                  |            |
+|                                          |                     | OPTIONAL { ?positionStatement pq:P582    |               |                  |            |
+|                                          |                     | ?termEnd . }   FILTER (     ?termStart   |               |                  |            |
+|                                          |                     | >= "1970-01-01T00:00:00Z"^^xsd:dateTime  |               |                  |            |
+|                                          |                     | ||     (       ?termStart <              |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime &&  |               |                  |            |
+|                                          |                     | ( !BOUND(?termEnd) || ?termEnd >=        |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime )   |               |                  |            |
+|                                          |                     | )   )   SERVICE wikibase:label {         |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language        |               |                  |            |
+|                                          |                     | "[AUTO_LANGUAGE],en" .   } } ORDER BY    |               |                  |            |
+|                                          |                     | ?termStart                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| For all US presidencies that started     | benchmark           | SELECT ?presidentLabel ?startTime WHERE  |            10 |               10 |         10 |
+| after 1970, give the serving president   |                     | { ?president wdt:P31 wd:Q5. ?president   |               |                  |            |
+| and the start date                       |                     | p:P39 ?positionStatement.                |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696.     |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?startTime.   |               |                  |            |
+|                                          |                     | FILTER (?startTime >=                    |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime)    |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?startTime                  |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates from    | benchmark           | SELECT DISTINCT ?laureateLabel WHERE {   |            30 |               30 |         30 |
+| 2000 to 2010                             |                     | ?laureate wdt:P31 wd:Q5 ; p:P166         |               |                  |            |
+|                                          |                     | ?awardStatement .  ?awardStatement       |               |                  |            |
+|                                          |                     | ps:P166 wd:Q38104 ; pq:P585 ?awardDate . |               |                  |            |
+|                                          |                     | FILTER (YEAR(?awardDate) >= 2000 &&      |               |                  |            |
+|                                          |                     | YEAR(?awardDate) <= 2010) SERVICE        |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?awardDate ?laureateLabel   |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Niels Bohr win a Nobel Prize?   | benchmark           | SELECT ?date WHERE { wd:Q7085 p:P166     |             1 |                1 |          1 |
+|                                          |                     | ?statement . ?statement ps:P166 ?award . |               |                  |            |
+|                                          |                     | ?award wdt:P279 wd:Q7191 . ?statement    |               |                  |            |
+|                                          |                     | pq:P585 ?date . }                        |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Richard Feynman win a Nobel     | benchmark           | SELECT ?date WHERE { wd:Q39246 p:P166    |             1 |                1 |          1 |
+| Prize?                                   |                     | ?statement . ?statement ps:P166 ?award . |               |                  |            |
+|                                          |                     | ?award wdt:P279 wd:Q7191 . ?statement    |               |                  |            |
+|                                          |                     | pq:P585 ?date . }                        |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | benchmark           | SELECT DISTINCT ?laureateLabel WHERE {   |            57 |               57 |         57 |
+| their prize after Niels Bohr but before  |                     | ?laureate wdt:P31 wd:Q5 ;                |               |                  |            |
+| Richard Feynman                          |                     | p:P166 ?awardStatement .                 |               |                  |            |
+|                                          |                     | ?awardStatement ps:P166 wd:Q38104 ;      |               |                  |            |
+|                                          |                     | pq:P585 ?awardDate .    wd:Q7085 p:P166  |               |                  |            |
+|                                          |                     | ?bohrAwardStatement .                    |               |                  |            |
+|                                          |                     | ?bohrAwardStatement ps:P166 wd:Q38104 ;  |               |                  |            |
+|                                          |                     | pq:P585 ?bohrAwardDate .    wd:Q39246    |               |                  |            |
+|                                          |                     | p:P166 ?feynmanAwardStatement .          |               |                  |            |
+|                                          |                     | ?feynmanAwardStatement ps:P166 wd:Q38104 |               |                  |            |
+|                                          |                     | ;                          pq:P585       |               |                  |            |
+|                                          |                     | ?feynmanAwardDate .    FILTER            |               |                  |            |
+|                                          |                     | (?awardDate > ?bohrAwardDate &&          |               |                  |            |
+|                                          |                     | ?awardDate < ?feynmanAwardDate)          |               |                  |            |
+|                                          |                     | SERVICE wikibase:label {                 |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language        |               |                  |            |
+|                                          |                     | "[AUTO_LANGUAGE],en".   } } ORDER BY     |               |                  |            |
+|                                          |                     | ?awardDate ?laureateLabel                |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | benchmark           | SELECT DISTINCT ?laureateLabel WHERE {   |            57 |               57 |         57 |
+| their prize after Niels Bohr but before  |                     | ?laureate wdt:P31 wd:Q5 ;                |               |                  |            |
+| Richard Feynman! This query gives Niels  |                     | p:P166 ?awardStatement .                 |               |                  |            |
+| Bohrs date:  SELECT ?date WHERE {        |                     | ?awardStatement ps:P166 wd:Q38104 ;      |               |                  |            |
+| wd:Q7085 p:P166 ?statement . ?statement  |                     | pq:P585 ?awardDate .    wd:Q7085 p:P166  |               |                  |            |
+| ps:P166 ?award . ?award wdt:P279         |                     | ?bohrAwardStatement .                    |               |                  |            |
+| wd:Q7191 . ?statement pq:P585 ?date . }  |                     | ?bohrAwardStatement ps:P166 wd:Q38104 ;  |               |                  |            |
+| , this query gives Richard Feynmans      |                     | pq:P585 ?bohrAwardDate .    wd:Q39246    |               |                  |            |
+| date:  SELECT ?date WHERE { wd:Q39246    |                     | p:P166 ?feynmanAwardStatement .          |               |                  |            |
+| p:P166 ?statement . ?statement ps:P166   |                     | ?feynmanAwardStatement ps:P166 wd:Q38104 |               |                  |            |
+| ?award . ?award wdt:P279 wd:Q7191 .      |                     | ;                          pq:P585       |               |                  |            |
+| ?statement pq:P585 ?date . } , and this  |                     | ?feynmanAwardDate .    FILTER            |               |                  |            |
+| query gives all physics nobel laureates  |                     | (?awardDate > ?bohrAwardDate &&          |               |                  |            |
+| from 2000 to 2010:  SELECT DISTINCT      |                     | ?awardDate < ?feynmanAwardDate)          |               |                  |            |
+| ?laureateLabel WHERE { ?laureate wdt:P31 |                     | SERVICE wikibase:label {                 |               |                  |            |
+| wd:Q5 ; p:P166 ?awardStatement .         |                     | bd:serviceParam wikibase:language        |               |                  |            |
+| ?awardStatement ps:P166 wd:Q38104 ;      |                     | "[AUTO_LANGUAGE],en".   } } ORDER BY     |               |                  |            |
+| pq:P585 ?awardDate . FILTER              |                     | ?awardDate ?laureateLabel                |               |                  |            |
+| (YEAR(?awardDate) >= 2000 &&             |                     |                                          |               |                  |            |
+| YEAR(?awardDate) <= 2010) SERVICE        |                     |                                          |               |                  |            |
+| wikibase:label { bd:serviceParam         |                     |                                          |               |                  |            |
+| wikibase:language "[AUTO_LANGUAGE],en".  |                     |                                          |               |                  |            |
+| } } ORDER BY ?awardDate ?laureateLabel   |                     |                                          |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the grand children of Queen         | benchmark           | SELECT DISTINCT ?grandchildLabel WHERE   |             8 |                8 |          8 |
+| Elisabeth II                             |                     | { wd:Q9682 wdt:P40 ?child . ?child       |               |                  |            |
+|                                          |                     | wdt:P40 ?grandchild . SERVICE            |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?grandchildLabel            |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer      | benchmark           | SELECT DISTINCT ?countryLabel ?year      |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | WHERE { ?olympics wdt:P31 wd:Q159821 ;   |               |                  |            |
+| 2022, along with the year                |                     | wdt:P585 ?date ; wdt:P17 ?country .      |               |                  |            |
+|                                          |                     | BIND(YEAR(?date) AS ?year) . FILTER      |               |                  |            |
+|                                          |                     | (?year >= 2008 && ?year <= 2022) .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en" . |               |                  |            |
+|                                          |                     | } } ORDER BY ?year                       |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Winter      | benchmark           | SELECT DISTINCT ?countryLabel ?year      |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | WHERE { ?olympics wdt:P31 wd:Q82414 ;    |               |                  |            |
+| 2022, along with the year                |                     | wdt:P585 ?date ; wdt:P17 ?country .      |               |                  |            |
+|                                          |                     | BIND(YEAR(?date) AS ?year) . FILTER      |               |                  |            |
+|                                          |                     | (?year >= 2008 && ?year <= 2022) .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "[AUTO_LANGUAGE],en" . |               |                  |            |
+|                                          |                     | } } ORDER BY ?year                       |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Olympics    | benchmark           | SELECT DISTINCT ?countryLabel ?year      |             8 |                8 |          8 |
+| were held between 2008 and 2022, along   |                     | WHERE { VALUES ?olympicType { wd:Q159821 |               |                  |            |
+| with the year                            |                     | wd:Q82414 } ?olympics wdt:P31            |               |                  |            |
+|                                          |                     | ?olympicType ; wdt:P585 ?date ; wdt:P17  |               |                  |            |
+|                                          |                     | ?country . BIND(YEAR(?date) AS ?year) .  |               |                  |            |
+|                                          |                     | FILTER (?year >= 2008 && ?year <= 2022)  |               |                  |            |
+|                                          |                     | . SERVICE wikibase:label {               |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language        |               |                  |            |
+|                                          |                     | "[AUTO_LANGUAGE],en" . } } ORDER BY      |               |                  |            |
+|                                          |                     | ?year ?countryLabel                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer- or  | benchmark           | SELECT DISTINCT ?countryLabel ?year      |             8 |                8 |          8 |
+| Winter Olympics were held between 2008   |                     | WHERE { VALUES ?olympicType { wd:Q159821 |               |                  |            |
+| and 2022, along with the year            |                     | wd:Q82414 } ?olympics wdt:P31            |               |                  |            |
+|                                          |                     | ?olympicType ; wdt:P585 ?date ; wdt:P17  |               |                  |            |
+|                                          |                     | ?country . BIND(YEAR(?date) AS ?year) .  |               |                  |            |
+|                                          |                     | FILTER (?year >= 2008 && ?year <= 2022)  |               |                  |            |
+|                                          |                     | . SERVICE wikibase:label {               |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language        |               |                  |            |
+|                                          |                     | "[AUTO_LANGUAGE],en" . } } ORDER BY      |               |                  |            |
+|                                          |                     | ?year ?countryLabel                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| Children of Johann Sebastian Bach        | gemini              | SELECT ?child ?childLabel WHERE {        |            20 |               20 |         20 |
+|                                          |                     | wd:Q1339 wdt:P40 ?child .   SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents                    | gemini              | SELECT ?president ?presidentLabel WHERE  |             0 |               45 |          0 |
+|                                          |                     | {   ?president wdt:P31 wd:Q11696 .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini              | SELECT ?president ?presidentLabel WHERE  |             0 |               45 |          0 |
+|                                          |                     | {   ?president wdt:P31 wd:Q11696 .       |               |                  |            |
+|                                          |                     | FILTER NOT EXISTS {     ?president       |               |                  |            |
+|                                          |                     | wdt:P31 wd:Q95074 .   }   SERVICE        |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents since 1970         | gemini              | SELECT ?president ?presidentLabel        |             0 |               10 |          0 |
+|                                          |                     | ?startTime WHERE {   ?president wdt:P31  |               |                  |            |
+|                                          |                     | wd:Q11696 .   ?president wdt:P580        |               |                  |            |
+|                                          |                     | ?startTime .   FILTER (?startTime >=     |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime) .  |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?startTime                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini              | SELECT DISTINCT ?president               |             9 |               10 |          9 |
+| since 1970                               |                     | ?presidentLabel WHERE {   ?president     |               |                  |            |
+|                                          |                     | wdt:P31 wd:Q5 .   ?president p:P39       |               |                  |            |
+|                                          |                     | ?positionStatement .                     |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696 .    |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?startTime .  |               |                  |            |
+|                                          |                     | FILTER (YEAR(?startTime) >= 1970)        |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?startTime                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| For all US presidencies that started     | gemini              | SELECT ?president ?presidentLabel        |            11 |               10 |         10 |
+| after 1970, give the serving president   |                     | ?startDate WHERE {   ?president p:P39    |               |                  |            |
+| and the start date                       |                     | ?positionStatement .                     |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696 .    |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?startDate .  |               |                  |            |
+|                                          |                     | FILTER (?startDate >                     |               |                  |            |
+|                                          |                     | "1970-12-31T23:59:59Z"^^xsd:dateTime) .  |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates from    | gemini              | SELECT ?laureate ?laureateLabel ?year    |             0 |               30 |          0 |
+| 2000 to 2010                             |                     | WHERE {   ?award wdt:P31 wd:Q38104 .     |               |                  |            |
+|                                          |                     | ?award wdt:P585 ?date .   BIND           |               |                  |            |
+|                                          |                     | (YEAR(?date) AS ?year) .   FILTER (?year |               |                  |            |
+|                                          |                     | >= 2000 && ?year <= 2010) .   ?laureate  |               |                  |            |
+|                                          |                     | wdt:P166 ?award .   SERVICE              |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?year ?laureateLabel                     |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Niels Bohr win a Nobel Prize?   | gemini              | SELECT ?year WHERE {   wd:Q7085          |             0 |                1 |          0 |
+|                                          |                     | wdt:P166 ?award .   ?award wdt:P585      |               |                  |            |
+|                                          |                     | ?date .   ?award wdt:P31 ?awardType .    |               |                  |            |
+|                                          |                     | ?awardType wdt:P279* wd:Q7191 .          |               |                  |            |
+|                                          |                     | BIND(YEAR(?date) AS ?year) }             |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Richard Feynman win a Nobel     | gemini              | SELECT ?year WHERE {   wd:Q39246         |             0 |                1 |          0 |
+| Prize?                                   |                     | wdt:P166 ?nobelPrize .   ?nobelPrize     |               |                  |            |
+|                                          |                     | wdt:P31 wd:Q7191 .   ?nobelPrize         |               |                  |            |
+|                                          |                     | wdt:P585 ?date .   BIND(YEAR(?date) AS   |               |                  |            |
+|                                          |                     | ?year)   SERVICE wikibase:label {        |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini              | SELECT ?laureate ?laureateLabel WHERE {  |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | # Find the Nobel Prize in Physics award  |               |                  |            |
+| Richard Feynman                          |                     | statement for Niels Bohr and extract the |               |                  |            |
+|                                          |                     | year   wd:Q7085 wdt:P166                 |               |                  |            |
+|                                          |                     | ?bohrAwardStatement .                    |               |                  |            |
+|                                          |                     | ?bohrAwardStatement ps:P166 wd:Q38104 .  |               |                  |            |
+|                                          |                     | ?bohrAwardStatement pq:P585              |               |                  |            |
+|                                          |                     | ?bohrAwardDate .   BIND                  |               |                  |            |
+|                                          |                     | (YEAR(?bohrAwardDate) AS ?bohrYear)    # |               |                  |            |
+|                                          |                     | Find the Nobel Prize in Physics award    |               |                  |            |
+|                                          |                     | statement for Richard Feynman and        |               |                  |            |
+|                                          |                     | extract the year   wd:Q39246 wdt:P166    |               |                  |            |
+|                                          |                     | ?feynmanAwardStatement .                 |               |                  |            |
+|                                          |                     | ?feynmanAwardStatement ps:P166 wd:Q38104 |               |                  |            |
+|                                          |                     | .   ?feynmanAwardStatement pq:P585       |               |                  |            |
+|                                          |                     | ?feynmanAwardDate .   BIND               |               |                  |            |
+|                                          |                     | (YEAR(?feynmanAwardDate) AS              |               |                  |            |
+|                                          |                     | ?feynmanYear)    # Find all humans who   |               |                  |            |
+|                                          |                     | received the Nobel Prize in Physics and  |               |                  |            |
+|                                          |                     | their award year   ?laureate wdt:P31     |               |                  |            |
+|                                          |                     | wd:Q5 .   ?laureate wdt:P166             |               |                  |            |
+|                                          |                     | ?laureateAwardStatement .                |               |                  |            |
+|                                          |                     | ?laureateAwardStatement ps:P166          |               |                  |            |
+|                                          |                     | wd:Q38104 .   ?laureateAwardStatement    |               |                  |            |
+|                                          |                     | pq:P585 ?laureateAwardDate .   BIND      |               |                  |            |
+|                                          |                     | (YEAR(?laureateAwardDate) AS             |               |                  |            |
+|                                          |                     | ?laureateYear)    # Filter the laureates |               |                  |            |
+|                                          |                     | whose award year is after Niels Bohr's   |               |                  |            |
+|                                          |                     | and before Richard Feynman's   FILTER    |               |                  |            |
+|                                          |                     | (?laureateYear > ?bohrYear &&            |               |                  |            |
+|                                          |                     | ?laureateYear < ?feynmanYear)    #       |               |                  |            |
+|                                          |                     | Service to get human-readable labels for |               |                  |            |
+|                                          |                     | the results   SERVICE wikibase:label {   |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?laureateYear               |               |                  |            |
+|                                          |                     | ?laureateLabel                           |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini              | SELECT DISTINCT ?laureate                |            57 |               57 |         57 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel WHERE {   # Get Niels     |               |                  |            |
+| Richard Feynman! This query gives Niels  |                     | Bohr's Nobel Prize date   {     SELECT   |               |                  |            |
+| Bohrs date:  SELECT ?date WHERE {        |                     | ?bohrDate     WHERE {       wd:Q7085     |               |                  |            |
+| wd:Q7085 p:P166 ?statement . ?statement  |                     | p:P166 ?bohrAwardStatement .             |               |                  |            |
+| ps:P166 ?award . ?award wdt:P279         |                     | ?bohrAwardStatement ps:P166 wd:Q38104 .  |               |                  |            |
+| wd:Q7191 . ?statement pq:P585 ?date . }  |                     | ?bohrAwardStatement pq:P585 ?bohrDate .  |               |                  |            |
+| , this query gives Richard Feynmans      |                     | }   }    # Get Richard Feynman's Nobel   |               |                  |            |
+| date:  SELECT ?date WHERE { wd:Q39246    |                     | Prize date   {     SELECT ?feynmanDate   |               |                  |            |
+| p:P166 ?statement . ?statement ps:P166   |                     | WHERE {       wd:Q39246 p:P166           |               |                  |            |
+| ?award . ?award wdt:P279 wd:Q7191 .      |                     | ?feynmanAwardStatement .                 |               |                  |            |
+| ?statement pq:P585 ?date . } , and this  |                     | ?feynmanAwardStatement ps:P166 wd:Q38104 |               |                  |            |
+| query gives all physics nobel laureates  |                     | .       ?feynmanAwardStatement pq:P585   |               |                  |            |
+| from 2000 to 2010:  SELECT DISTINCT      |                     | ?feynmanDate .     }   }    # Find all   |               |                  |            |
+| ?laureateLabel WHERE { ?laureate wdt:P31 |                     | physics Nobel laureates   ?laureate      |               |                  |            |
+| wd:Q5 ; p:P166 ?awardStatement .         |                     | wdt:P31 wd:Q5 ;             p:P166       |               |                  |            |
+| ?awardStatement ps:P166 wd:Q38104 ;      |                     | ?awardStatement .   ?awardStatement      |               |                  |            |
+| pq:P585 ?awardDate . FILTER              |                     | ps:P166 wd:Q38104 ;                      |               |                  |            |
+| (YEAR(?awardDate) >= 2000 &&             |                     | pq:P585 ?awardDate .    # Filter         |               |                  |            |
+| YEAR(?awardDate) <= 2010) SERVICE        |                     | laureates whose award date is after      |               |                  |            |
+| wikibase:label { bd:serviceParam         |                     | Bohr's and before Feynman's   FILTER     |               |                  |            |
+| wikibase:language "[AUTO_LANGUAGE],en".  |                     | (?awardDate > ?bohrDate && ?awardDate <  |               |                  |            |
+| } } ORDER BY ?awardDate ?laureateLabel   |                     | ?feynmanDate)    SERVICE wikibase:label  |               |                  |            |
+|                                          |                     | {     bd:serviceParam wikibase:language  |               |                  |            |
+|                                          |                     | "en" .   } } ORDER BY ?awardDate         |               |                  |            |
+|                                          |                     | ?laureateLabel                           |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the grand children of Queen         | gemini              | SELECT ?grandchild ?grandchildLabel      |             8 |                8 |          8 |
+| Elisabeth II                             |                     | WHERE {   wd:Q9682 wdt:P40 ?child .      |               |                  |            |
+|                                          |                     | ?child wdt:P40 ?grandchild .   SERVICE   |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer      | gemini              | SELECT ?country ?countryLabel ?year      |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | WHERE {   ?event wdt:P31 wd:Q159821 .    |               |                  |            |
+| 2022, along with the year                |                     | ?event wdt:P585 ?date .   BIND           |               |                  |            |
+|                                          |                     | (YEAR(?date) AS ?year) .   FILTER (?year |               |                  |            |
+|                                          |                     | >= 2008 && ?year <= 2022) .   ?event     |               |                  |            |
+|                                          |                     | wdt:P17 ?country .   SERVICE             |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Winter      | gemini              | SELECT ?country ?countryLabel ?year      |             0 |                4 |          0 |
+| Olympics were held between 2008 and      |                     | WHERE {   ?event wdt:P31 wd:Q108057428 . |               |                  |            |
+| 2022, along with the year                |                     | ?event wdt:P585 ?date .   BIND           |               |                  |            |
+|                                          |                     | (YEAR(?date) AS ?year) .   FILTER (?year |               |                  |            |
+|                                          |                     | >= 2008 && ?year <= 2022) .   ?event     |               |                  |            |
+|                                          |                     | wdt:P17 ?country .   SERVICE             |               |                  |            |
+|                                          |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+|                                          |                     | wikibase:language "en" .   } } ORDER BY  |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Olympics    | gemini              | SELECT ?country ?countryLabel ?year      |             0 |                8 |          0 |
+| were held between 2008 and 2022, along   |                     | WHERE {   ?event wdt:P31 wd:Q5389 .      |               |                  |            |
+| with the year                            |                     | ?event wdt:P585 ?date .   BIND           |               |                  |            |
+|                                          |                     | (YEAR(?date) AS ?year) .   FILTER (?year |               |                  |            |
+|                                          |                     | >= 2008 && ?year <= 2022) .   ?event     |               |                  |            |
+|                                          |                     | wdt:P17 ?country .   SERVICE             |               |                  |            |
+|                                          |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+|                                          |                     | wikibase:language "en" .   } } ORDER BY  |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer- or  | gemini              | SELECT DISTINCT ?country ?countryLabel   |             4 |                8 |          4 |
+| Winter Olympics were held between 2008   |                     | ?year WHERE {   { ?event wdt:P31         |               |                  |            |
+| and 2022, along with the year            |                     | wd:Q159821 . }   UNION   { ?event        |               |                  |            |
+|                                          |                     | wdt:P31 wd:Q108057428 . }      ?event    |               |                  |            |
+|                                          |                     | wdt:P17 ?country .   ?event wdt:P585     |               |                  |            |
+|                                          |                     | ?date .      BIND(YEAR(?date) AS ?year)  |               |                  |            |
+|                                          |                     | FILTER(?year >= 2008 && ?year <= 2022)   |               |                  |            |
+|                                          |                     | SERVICE wikibase:label {                 |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en" . |               |                  |            |
+|                                          |                     | } } ORDER BY ?year ?countryLabel         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| Children of Johann Sebastian Bach        | gemini_mcp          | SELECT ?child ?childLabel WHERE {        |            20 |               20 |         20 |
+|                                          |                     | wd:Q1339 wdt:P40 ?child .   SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+|                                          |                     | wikibase:language "en".   } }            |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_mcp          | SELECT ?president ?presidentLabel WHERE  |            45 |               45 |         45 |
+|                                          |                     | {   ?president wdt:P39 wd:Q11696 .       |               |                  |            |
+|                                          |                     | ?president wdt:P31 wd:Q5 .   SERVICE     |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents since 1970         | gemini_mcp          | SELECT ?president ?presidentLabel        |            11 |               10 |          9 |
+|                                          |                     | ?startTime ?endTime WHERE {   ?president |               |                  |            |
+|                                          |                     | p:P39 ?positionStatement .               |               |                  |            |
+|                                          |                     | ?positionStatement ps:P39 wd:Q11696 .    |               |                  |            |
+|                                          |                     | ?positionStatement pq:P580 ?startTime .  |               |                  |            |
+|                                          |                     | OPTIONAL { ?positionStatement pq:P582    |               |                  |            |
+|                                          |                     | ?endTime . }   ?president wdt:P27 wd:Q30 |               |                  |            |
+|                                          |                     | .   FILTER (YEAR(?startTime) >= 1970)    |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?startTime                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_mcp          | SELECT DISTINCT ?president               |             9 |               10 |          9 |
+| since 1970                               |                     | ?presidentLabel WHERE {   ?president     |               |                  |            |
+|                                          |                     | wdt:P31 wd:Q5;              wdt:P39      |               |                  |            |
+|                                          |                     | wd:Q11696.   ?president p:P39            |               |                  |            |
+|                                          |                     | ?position_statement.                     |               |                  |            |
+|                                          |                     | ?position_statement pq:P580 ?start_time. |               |                  |            |
+|                                          |                     | FILTER (?start_time >=                   |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime)    |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| For all US presidencies that started     | gemini_mcp          | SELECT ?president ?presidentLabel        |             0 |               10 |          0 |
+| after 1970, give the serving president   |                     | ?startDate WHERE {   ?president wdt:P39  |               |                  |            |
+| and the start date                       |                     | ?positionHeldStatement .                 |               |                  |            |
+|                                          |                     | ?positionHeldStatement                   |               |                  |            |
+|                                          |                     | wikibase:directClaim wd:Q11696 . #       |               |                  |            |
+|                                          |                     | Q11696 is "President of the United       |               |                  |            |
+|                                          |                     | States"   ?positionHeldStatement pq:P580 |               |                  |            |
+|                                          |                     | ?startDate . # P580 is "start time"      |               |                  |            |
+|                                          |                     | FILTER (?startDate >                     |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z"^^xsd:dateTime)    |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?startDate                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates from    | gemini_mcp          | SELECT ?laureate ?laureateLabel ?year    |            30 |               30 |         30 |
+| 2000 to 2010                             |                     | WHERE {   ?laureate p:P166               |               |                  |            |
+|                                          |                     | ?awardStatement.   ?awardStatement       |               |                  |            |
+|                                          |                     | ps:P166 wd:Q38104.   ?awardStatement     |               |                  |            |
+|                                          |                     | pq:P585 ?date.   FILTER (YEAR(?date) >=  |               |                  |            |
+|                                          |                     | 2000 && YEAR(?date) <= 2010)   BIND      |               |                  |            |
+|                                          |                     | (YEAR(?date) AS ?year)   SERVICE         |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Niels Bohr win a Nobel Prize?   | gemini_mcp          | SELECT ?nobelPrizeLabel ?year WHERE {    |             0 |                1 |          0 |
+|                                          |                     | wd:Q7085 p:P166 ?awardStatement .        |               |                  |            |
+|                                          |                     | ?awardStatement ps:P166 wd:Q7191 .       |               |                  |            |
+|                                          |                     | ?awardStatement pq:P585 ?year .          |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Richard Feynman win a Nobel     | gemini_mcp          | SELECT ?awardDate WHERE {   wd:Q39246    |             1 |                1 |          1 |
+| Prize?                                   |                     | p:P166 ?statement .   ?statement ps:P166 |               |                  |            |
+|                                          |                     | wd:Q38104 .   ?statement pq:P585         |               |                  |            |
+|                                          |                     | ?awardDate .   SERVICE wikibase:label {  |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_mcp          | SELECT DISTINCT ?laureate                |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel ?prizeYear WHERE {        |               |                  |            |
+| Richard Feynman                          |                     | ?laureate wdt:P166 ?award .   ?award     |               |                  |            |
+|                                          |                     | wdt:P279* wd:Q38104 . # Ensure it's a    |               |                  |            |
+|                                          |                     | Nobel Prize in Physics or a subclass     |               |                  |            |
+|                                          |                     | ?award pq:P585 ?prizeYear .    FILTER    |               |                  |            |
+|                                          |                     | (YEAR(?prizeYear) > 1922 &&              |               |                  |            |
+|                                          |                     | YEAR(?prizeYear) < 1965)    SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+|                                          |                     | wikibase:language "en" .   } } ORDER BY  |               |                  |            |
+|                                          |                     | ?prizeYear                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_mcp          | SELECT DISTINCT ?laureate                |            57 |               57 |         57 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel ?awardDate WHERE {        |               |                  |            |
+| Richard Feynman! This query gives Niels  |                     | ?laureate wdt:P31 wd:Q5 ;                |               |                  |            |
+| Bohrs date:  SELECT ?date WHERE {        |                     | p:P166 ?awardStatement .                 |               |                  |            |
+| wd:Q7085 p:P166 ?statement . ?statement  |                     | ?awardStatement ps:P166 wd:Q38104 ;      |               |                  |            |
+| ps:P166 ?award . ?award wdt:P279         |                     | pq:P585 ?awardDate .   FILTER            |               |                  |            |
+| wd:Q7191 . ?statement pq:P585 ?date . }  |                     | (YEAR(?awardDate) > 1922 &&              |               |                  |            |
+| , this query gives Richard Feynmans      |                     | YEAR(?awardDate) < 1965)   SERVICE       |               |                  |            |
+| date:  SELECT ?date WHERE { wd:Q39246    |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+| p:P166 ?statement . ?statement ps:P166   |                     | wikibase:language "en".   } } ORDER BY   |               |                  |            |
+| ?award . ?award wdt:P279 wd:Q7191 .      |                     | ?awardDate ?laureateLabel                |               |                  |            |
+| ?statement pq:P585 ?date . } , and this  |                     |                                          |               |                  |            |
+| query gives all physics nobel laureates  |                     |                                          |               |                  |            |
+| from 2000 to 2010:  SELECT DISTINCT      |                     |                                          |               |                  |            |
+| ?laureateLabel WHERE { ?laureate wdt:P31 |                     |                                          |               |                  |            |
+| wd:Q5 ; p:P166 ?awardStatement .         |                     |                                          |               |                  |            |
+| ?awardStatement ps:P166 wd:Q38104 ;      |                     |                                          |               |                  |            |
+| pq:P585 ?awardDate . FILTER              |                     |                                          |               |                  |            |
+| (YEAR(?awardDate) >= 2000 &&             |                     |                                          |               |                  |            |
+| YEAR(?awardDate) <= 2010) SERVICE        |                     |                                          |               |                  |            |
+| wikibase:label { bd:serviceParam         |                     |                                          |               |                  |            |
+| wikibase:language "[AUTO_LANGUAGE],en".  |                     |                                          |               |                  |            |
+| } } ORDER BY ?awardDate ?laureateLabel   |                     |                                          |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the grand children of Queen         | gemini_mcp          | SELECT ?grandchild ?grandchildLabel      |             8 |                8 |          8 |
+| Elisabeth II                             |                     | WHERE {   wd:Q9682 wdt:P40 ?child .      |               |                  |            |
+|                                          |                     | ?child wdt:P40 ?grandchild .   SERVICE   |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer      | gemini_mcp          | SELECT ?countryLabel ?year WHERE {       |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | ?olympics wdt:P31 wd:Q159821 .           |               |                  |            |
+| 2022, along with the year                |                     | ?olympics wdt:P17 ?country .   ?olympics |               |                  |            |
+|                                          |                     | wdt:P585 ?pointInTime .                  |               |                  |            |
+|                                          |                     | BIND(YEAR(?pointInTime) AS ?year)        |               |                  |            |
+|                                          |                     | FILTER (?year >= 2008 && ?year <= 2022)  |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Winter      | gemini_mcp          | SELECT ?countryLabel ?year WHERE {       |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | ?olympics wdt:P31 wd:Q82414 .            |               |                  |            |
+| 2022, along with the year                |                     | ?olympics wdt:P17 ?country .   ?olympics |               |                  |            |
+|                                          |                     | wdt:P585 ?time .   FILTER (YEAR(?time)   |               |                  |            |
+|                                          |                     | >= 2008 && YEAR(?time) <= 2022)          |               |                  |            |
+|                                          |                     | BIND(YEAR(?time) AS ?year)   SERVICE     |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ?year                                    |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Olympics    | gemini_mcp          | SELECT ?countryLabel ?year WHERE {       |             0 |                8 |          0 |
+| were held between 2008 and 2022, along   |                     | ?olympics wdt:P31 wd:Q5389 .   ?olympics |               |                  |            |
+| with the year                            |                     | wdt:P585 ?date .   FILTER (YEAR(?date)   |               |                  |            |
+|                                          |                     | >= 2008 && YEAR(?date) <= 2022) .        |               |                  |            |
+|                                          |                     | ?olympics wdt:P17 ?country .   SERVICE   |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". }                |               |                  |            |
+|                                          |                     | BIND(YEAR(?date) AS ?year) }             |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer- or  | gemini_mcp          | SELECT ?countryLabel ?year WHERE {       |             0 |                8 |          0 |
+| Winter Olympics were held between 2008   |                     | ?event wdt:P31 ?type.   FILTER (?type =  |               |                  |            |
+| and 2022, along with the year            |                     | wd:Q159821 || ?type = wd:Q82414).        |               |                  |            |
+|                                          |                     | ?event wdt:P17 ?country.   ?event        |               |                  |            |
+|                                          |                     | wdt:P585 ?date.   BIND(YEAR(?date) AS    |               |                  |            |
+|                                          |                     | ?year).   FILTER (?year >= 2008 && ?year |               |                  |            |
+|                                          |                     | <= 2022).   SERVICE wikibase:label {     |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ?year                       |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| Children of Johann Sebastian Bach        | gemini_finetune     | SELECT ?child ?childLabel WHERE {        |            20 |               20 |         20 |
+|                                          |                     | wd:Q1339 wdt:P40 ?child .   SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents                    | gemini_finetune     | SELECT ?item ?itemLabel WHERE { ?item    |            63 |               45 |         45 |
+|                                          |                     | wdt:P39 wd:Q11696 . SERVICE              |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_finetune     | SELECT ?item ?itemLabel WHERE { ?item    |            45 |               45 |         45 |
+|                                          |                     | wdt:P39 wd:Q11696 . ?item wdt:P31 wd:Q5  |               |                  |            |
+|                                          |                     | . SERVICE wikibase:label {               |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents since 1970         | gemini_finetune     | SELECT ?president ?start_time WHERE {    |             0 |               10 |          0 |
+|                                          |                     | wd:Q11696 wdt:P1308 ?president .         |               |                  |            |
+|                                          |                     | ?president wdt:P580 ?start_time .        |               |                  |            |
+|                                          |                     | FILTER(YEAR(?start_time) >= 1970) .      |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ASC(?start_time)                         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_finetune     | SELECT ?president ?presidentLabel WHERE  |             0 |               10 |          0 |
+| since 1970                               |                     | {   ?president wdt:P39 wd:Q11696 .       |               |                  |            |
+|                                          |                     | ?president wdt:P31 wd:Q5 .   ?president  |               |                  |            |
+|                                          |                     | [wdt:term start] ?termStart .            |               |                  |            |
+|                                          |                     | FILTER(YEAR(?termStart) >= 1970) .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". ?president       |               |                  |            |
+|                                          |                     | rdfs:label ?presidentLabel } } ORDER BY  |               |                  |            |
+|                                          |                     | ASC(?termStart)                          |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| For all US presidencies that started     | gemini_finetune     | SELECT ?president ?presidentLabel        |             0 |               10 |          0 |
+| after 1970, give the serving president   |                     | ?startDate WHERE {   ?item wdt:P31       |               |                  |            |
+| and the start date                       |                     | wd:Q66975812 .   ?item wdt:P1308         |               |                  |            |
+|                                          |                     | ?president .   ?item wdt:P580 ?startDate |               |                  |            |
+|                                          |                     | .   FILTER(YEAR(?startDate) > 1970) .    |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates from    | gemini_finetune     | SELECT DISTINCT ?laureate                |             0 |               30 |          0 |
+| 2000 to 2010                             |                     | ?laureateLabel WHERE {     ?laureate     |               |                  |            |
+|                                          |                     | wdt:P166 ?award_instance .               |               |                  |            |
+|                                          |                     | ?award_instance wdt:P166 wd:Q38104 .     |               |                  |            |
+|                                          |                     | ?award_instance wdt:P585 ?date .         |               |                  |            |
+|                                          |                     | FILTER(YEAR(?date) >= 2000 &&            |               |                  |            |
+|                                          |                     | YEAR(?date) <= 2010) .     SERVICE       |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } ORDER BY     |               |                  |            |
+|                                          |                     | ASC(?laureateLabel) LIMIT 50             |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Niels Bohr win a Nobel Prize?   | gemini_finetune     | SELECT ?x ?xLabel WHERE { wd:Q7085       |             0 |                1 |          0 |
+|                                          |                     | wd:Q66796038 ?s . ?s wd:Q186408 ?x . ?s  |               |                  |            |
+|                                          |                     | wd:Q21503252 wd:Q7191 . SERVICE          |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Richard Feynman win a Nobel     | gemini_finetune     | SELECT ?value ?objLabel WHERE {          |             0 |                1 |          0 |
+| Prize?                                   |                     | wd:Q39246 wdt:P166 ?obj .   ?obj wdt:P31 |               |                  |            |
+|                                          |                     | wd:Q7191 .   ?obj pq:P585 ?value .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". ?obj rdfs:label  |               |                  |            |
+|                                          |                     | ?objLabel } }                            |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_finetune     | SELECT DISTINCT ?laureate                |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel WHERE {   # Get the date  |               |                  |            |
+| Richard Feynman                          |                     | of Niels Bohr's Nobel Prize in Physics   |               |                  |            |
+|                                          |                     | [wd:Nobel Prize in Physics 1922]         |               |                  |            |
+|                                          |                     | wdt:P585 ?bohr_date .    # Get the date  |               |                  |            |
+|                                          |                     | of Richard Feynman's Nobel Prize in      |               |                  |            |
+|                                          |                     | Physics   [wd:Nobel Prize in Physics     |               |                  |            |
+|                                          |                     | 1965] wdt:P585 ?feynman_date .    # Find |               |                  |            |
+|                                          |                     | all people who received a Nobel Prize in |               |                  |            |
+|                                          |                     | Physics   ?laureate wdt:P166 ?award_item |               |                  |            |
+|                                          |                     | .   ?award_item wdt:P31 wd:Q38104 .      |               |                  |            |
+|                                          |                     | ?award_item wdt:P585 ?award_date .    #  |               |                  |            |
+|                                          |                     | Filter laureates whose award date is     |               |                  |            |
+|                                          |                     | after Bohr's and before Feynman's        |               |                  |            |
+|                                          |                     | FILTER(?award_date > ?bohr_date) .       |               |                  |            |
+|                                          |                     | FILTER(?award_date < ?feynman_date) .    |               |                  |            |
+|                                          |                     | # Get the human-readable label for the   |               |                  |            |
+|                                          |                     | laureate   SERVICE wikibase:label {      |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en" . |               |                  |            |
+|                                          |                     | ?laureate rdfs:label ?laureateLabel .    |               |                  |            |
+|                                          |                     | } } ORDER BY ASC(?laureateLabel)         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_finetune     | SELECT DISTINCT ?laureate                |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel WHERE {   # Get Niels     |               |                  |            |
+| Richard Feynman! This query gives Niels  |                     | Bohr's Nobel Prize in Physics award date |               |                  |            |
+| Bohrs date:  SELECT ?date WHERE {        |                     | BIND((SELECT ?date WHERE { wd:Q7085      |               |                  |            |
+| wd:Q7085 p:P166 ?statement . ?statement  |                     | p:P166 ?s . ?s ps:P166 wd:Q38104 . ?s    |               |                  |            |
+| ps:P166 ?award . ?award wdt:P279         |                     | pq:P585 ?date }) AS ?bohrDate)    # Get  |               |                  |            |
+| wd:Q7191 . ?statement pq:P585 ?date . }  |                     | Richard Feynman's Nobel Prize in Physics |               |                  |            |
+| , this query gives Richard Feynmans      |                     | award date   BIND((SELECT ?date WHERE {  |               |                  |            |
+| date:  SELECT ?date WHERE { wd:Q39246    |                     | wd:Q39246 p:P166 ?s . ?s ps:P166         |               |                  |            |
+| p:P166 ?statement . ?statement ps:P166   |                     | wd:Q38104 . ?s pq:P585 ?date }) AS       |               |                  |            |
+| ?award . ?award wdt:P279 wd:Q7191 .      |                     | ?feynmanDate)    # Find all humans who   |               |                  |            |
+| ?statement pq:P585 ?date . } , and this  |                     | received the Nobel Prize in Physics      |               |                  |            |
+| query gives all physics nobel laureates  |                     | ?laureate wdt:P31 wd:Q5 ;                |               |                  |            |
+| from 2000 to 2010:  SELECT DISTINCT      |                     | p:P166 ?s .   ?s ps:P166 wd:Q38104 ;     |               |                  |            |
+| ?laureateLabel WHERE { ?laureate wdt:P31 |                     | pq:P585 ?awardDate .    # Filter by date |               |                  |            |
+| wd:Q5 ; p:P166 ?awardStatement .         |                     | range: after Bohr and before Feynman     |               |                  |            |
+| ?awardStatement ps:P166 wd:Q38104 ;      |                     | FILTER(?awardDate > ?bohrDate &&         |               |                  |            |
+| pq:P585 ?awardDate . FILTER              |                     | ?awardDate < ?feynmanDate)    # Get      |               |                  |            |
+| (YEAR(?awardDate) >= 2000 &&             |                     | laureate label in English   SERVICE      |               |                  |            |
+| YEAR(?awardDate) <= 2010) SERVICE        |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+| wikibase:label { bd:serviceParam         |                     | wikibase:language "en". ?laureate        |               |                  |            |
+| wikibase:language "[AUTO_LANGUAGE],en".  |                     | rdfs:label ?laureateLabel } } ORDER BY   |               |                  |            |
+| } } ORDER BY ?awardDate ?laureateLabel   |                     | ?awardDate ?laureateLabel                |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the grand children of Queen         | gemini_finetune     | SELECT ?grandchild ?grandchildLabel      |             0 |                8 |          0 |
+| Elisabeth II                             |                     | WHERE {   ?grandchild wdt:P22 ?child .   |               |                  |            |
+|                                          |                     | ?child wdt:P22 wd:Q194540 .   SERVICE    |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer      | gemini_finetune     | SELECT ?country ?countryLabel ?year      |             4 |                4 |          4 |
+| Olympics were held between 2008 and      |                     | WHERE {   ?event wdt:P31 wd:Q159821 .    |               |                  |            |
+| 2022, along with the year                |                     | ?event wdt:P17 ?country .   ?event       |               |                  |            |
+|                                          |                     | wdt:P585 ?pointInTime .                  |               |                  |            |
+|                                          |                     | BIND(YEAR(?pointInTime) AS ?year) .      |               |                  |            |
+|                                          |                     | FILTER(?year >= 2008 && ?year <= 2022) . |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Winter      | gemini_finetune     | SELECT ?country ?countryLabel ?year      |             0 |                4 |          0 |
+| Olympics were held between 2008 and      |                     | WHERE {   ?event wdt:P31 wd:Q108057428 . |               |                  |            |
+| 2022, along with the year                |                     | ?event wdt:P585 ?time .                  |               |                  |            |
+|                                          |                     | BIND(YEAR(?time) AS ?year) .   ?event    |               |                  |            |
+|                                          |                     | wdt:P17 ?country .   FILTER(?year >=     |               |                  |            |
+|                                          |                     | 2008 && ?year <= 2022) .   SERVICE       |               |                  |            |
+|                                          |                     | wikibase:label {     bd:serviceParam     |               |                  |            |
+|                                          |                     | wikibase:language "en".     ?country     |               |                  |            |
+|                                          |                     | rdfs:label ?countryLabel .   } }         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Olympics    | gemini_finetune     | SELECT ?countryLabel ?year WHERE {       |             0 |                8 |          0 |
+| were held between 2008 and 2022, along   |                     | ?event wdt:P31 wd:Q5389 . ?event wdt:P17 |               |                  |            |
+| with the year                            |                     | ?country . ?event wdt:P585 ?date .       |               |                  |            |
+|                                          |                     | BIND(YEAR(?date) AS ?year) .             |               |                  |            |
+|                                          |                     | FILTER(?year >= 2008 && ?year <= 2022) . |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en" . ?country        |               |                  |            |
+|                                          |                     | rdfs:label ?countryLabel } }             |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer- or  | gemini_finetune     | SELECT ?country ?countryLabel ?year      |             0 |                8 |          0 |
+| Winter Olympics were held between 2008   |                     | WHERE { { wd:Q159821 wdt:P31 ?event .    |               |                  |            |
+| and 2022, along with the year            |                     | ?event wdt:P17 ?country . ?event         |               |                  |            |
+|                                          |                     | wdt:P585 ?date . FILTER(YEAR(?date) >=   |               |                  |            |
+|                                          |                     | 2008 && YEAR(?date) <= 2022) } UNION {   |               |                  |            |
+|                                          |                     | wd:Q108057428 wdt:P31 ?event . ?event    |               |                  |            |
+|                                          |                     | wdt:P17 ?country . ?event wdt:P585 ?date |               |                  |            |
+|                                          |                     | . FILTER(YEAR(?date) >= 2008 &&          |               |                  |            |
+|                                          |                     | YEAR(?date) <= 2022) } BIND(YEAR(?date)  |               |                  |            |
+|                                          |                     | AS ?year) SERVICE wikibase:label {       |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | ?country rdfs:label ?countryLabel . } }  |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| Children of Johann Sebastian Bach        | gemini_finetune_mcp | SELECT ?child ?childLabel WHERE {        |            20 |               20 |         20 |
+|                                          |                     | wd:Q1339 wdt:P40 ?child . SERVICE        |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents                    | gemini_finetune_mcp | SELECT ?item ?itemLabel WHERE {          |             1 |               45 |          1 |
+|                                          |                     | wd:Q11696 wdt:P1308 ?item . SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_finetune_mcp | SELECT ?item ?itemLabel WHERE { ?item    |            45 |               45 |         45 |
+|                                          |                     | wdt:P39 wd:Q11696 . ?item wdt:P31 wd:Q5  |               |                  |            |
+|                                          |                     | . FILTER(?item != wd:Q125680992) .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents since 1970         | gemini_finetune_mcp | SELECT ?president ?presidentLabel        |             0 |               10 |          0 |
+|                                          |                     | ?start_time WHERE {   ?president p:P39   |               |                  |            |
+|                                          |                     | ?s .   ?s ps:P39 wd:Q11696 .   ?s        |               |                  |            |
+|                                          |                     | pq:P580 ?start_time .                    |               |                  |            |
+|                                          |                     | FILTER(xsd:dateTime(?start_time) >=      |               |                  |            |
+|                                          |                     | "1970-01-01T00:00:00Z") .   SERVICE      |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en" . } } ORDER BY    |               |                  |            |
+|                                          |                     | ASC(?start_time)                         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of non-fictional US presidents      | gemini_finetune_mcp | SELECT ?president ?presidentLabel WHERE  |             0 |               10 |          0 |
+| since 1970                               |                     | {     ?president wdt:P39 ?s .     ?s     |               |                  |            |
+|                                          |                     | ps:P39 wd:Q11696 .     ?s pq:P580        |               |                  |            |
+|                                          |                     | ?start_time .     ?president wdt:P31     |               |                  |            |
+|                                          |                     | wd:Q5 .     FILTER(YEAR(?start_time) >=  |               |                  |            |
+|                                          |                     | 1970) .     SERVICE wikibase:label {     |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } } ORDER BY ASC(?start_time)            |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| For all US presidencies that started     | gemini_finetune_mcp | SELECT ?president ?presidentLabel        |             0 |               10 |          0 |
+| after 1970, give the serving president   |                     | ?start_date WHERE {   ?president         |               |                  |            |
+| and the start date                       |                     | [position held] ?s .   ?s [position      |               |                  |            |
+|                                          |                     | held] wd:Q11696 .   ?s [start time]      |               |                  |            |
+|                                          |                     | ?start_date .   FILTER(YEAR(?start_date) |               |                  |            |
+|                                          |                     | > 1970) .   SERVICE wikibase:label {     |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | ?president rdfs:label ?presidentLabel }  |               |                  |            |
+|                                          |                     | }                                        |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates from    | gemini_finetune_mcp | SELECT ?laureate ?laureateLabel WHERE {  |            30 |               30 |         30 |
+| 2000 to 2010                             |                     | ?laureate p:P166 ?s .   ?s ps:P166       |               |                  |            |
+|                                          |                     | wd:Q38104 .   ?s pq:P585 ?point_in_time  |               |                  |            |
+|                                          |                     | .   FILTER(YEAR(?point_in_time) >= 2000  |               |                  |            |
+|                                          |                     | && YEAR(?point_in_time) <= 2010) .       |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Niels Bohr win a Nobel Prize?   | gemini_finetune_mcp | SELECT ?award ?awardLabel ?pointInTime   |             0 |                1 |          0 |
+|                                          |                     | WHERE {   wd:Q7085 wdt:P166 ?s .   ?s    |               |                  |            |
+|                                          |                     | P166 ?award .   ?s P585 ?pointInTime .   |               |                  |            |
+|                                          |                     | SERVICE wikibase:label {                 |               |                  |            |
+|                                          |                     | bd:serviceParam wikibase:language "en".  |               |                  |            |
+|                                          |                     | } }                                      |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| When did Richard Feynman win a Nobel     | gemini_finetune_mcp | SELECT ?value WHERE { wd:Q39246 p:P166   |             1 |                1 |          1 |
+| Prize?                                   |                     | ?s . ?s ps:P166 wd:Q38104 . ?s pq:P585   |               |                  |            |
+|                                          |                     | ?value }                                 |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_finetune_mcp | SELECT DISTINCT ?sbj ?sbjLabel           |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | ?award_date WHERE {   ?sbj [award        |               |                  |            |
+| Richard Feynman                          |                     | received] ?s .   ?s [award received]     |               |                  |            |
+|                                          |                     | [Nobel Prize in Physics] .   ?s [point   |               |                  |            |
+|                                          |                     | in time] ?award_date .                   |               |                  |            |
+|                                          |                     | FILTER(YEAR(?award_date) > 1922 &&       |               |                  |            |
+|                                          |                     | YEAR(?award_date) < 1965) .   SERVICE    |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en" } } ORDER BY      |               |                  |            |
+|                                          |                     | ASC(?award_date)                         |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list all physics nobel laureates who won | gemini_finetune_mcp | SELECT DISTINCT ?laureate                |             0 |               57 |          0 |
+| their prize after Niels Bohr but before  |                     | ?laureateLabel WHERE {   ?laureate       |               |                  |            |
+| Richard Feynman! This query gives Niels  |                     | wdt:P166 ?s .   ?s ps:P166 wd:Q38104 .   |               |                  |            |
+| Bohrs date:  SELECT ?date WHERE {        |                     | ?s pq:P585 ?awardDate .   FILTER         |               |                  |            |
+| wd:Q7085 p:P166 ?statement . ?statement  |                     | (YEAR(?awardDate) > 1922 &&              |               |                  |            |
+| ps:P166 ?award . ?award wdt:P279         |                     | YEAR(?awardDate) < 1965)   SERVICE       |               |                  |            |
+| wd:Q7191 . ?statement pq:P585 ?date . }  |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+| , this query gives Richard Feynmans      |                     | wikibase:language "en". ?laureate        |               |                  |            |
+| date:  SELECT ?date WHERE { wd:Q39246    |                     | rdfs:label ?laureateLabel } } ORDER BY   |               |                  |            |
+| p:P166 ?statement . ?statement ps:P166   |                     | ?laureateLabel                           |               |                  |            |
+| ?award . ?award wdt:P279 wd:Q7191 .      |                     |                                          |               |                  |            |
+| ?statement pq:P585 ?date . } , and this  |                     |                                          |               |                  |            |
+| query gives all physics nobel laureates  |                     |                                          |               |                  |            |
+| from 2000 to 2010:  SELECT DISTINCT      |                     |                                          |               |                  |            |
+| ?laureateLabel WHERE { ?laureate wdt:P31 |                     |                                          |               |                  |            |
+| wd:Q5 ; p:P166 ?awardStatement .         |                     |                                          |               |                  |            |
+| ?awardStatement ps:P166 wd:Q38104 ;      |                     |                                          |               |                  |            |
+| pq:P585 ?awardDate . FILTER              |                     |                                          |               |                  |            |
+| (YEAR(?awardDate) >= 2000 &&             |                     |                                          |               |                  |            |
+| YEAR(?awardDate) <= 2010) SERVICE        |                     |                                          |               |                  |            |
+| wikibase:label { bd:serviceParam         |                     |                                          |               |                  |            |
+| wikibase:language "[AUTO_LANGUAGE],en".  |                     |                                          |               |                  |            |
+| } } ORDER BY ?awardDate ?laureateLabel   |                     |                                          |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the grand children of Queen         | gemini_finetune_mcp | SELECT ?grandchild ?grandchildLabel      |             8 |                8 |          8 |
+| Elisabeth II                             |                     | WHERE {   wd:Q9682 wdt:P40 ?child .      |               |                  |            |
+|                                          |                     | ?child wdt:P40 ?grandchild .   SERVICE   |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer      | gemini_finetune_mcp | SELECT ?country ?countryLabel ?year      |             0 |                4 |          0 |
+| Olympics were held between 2008 and      |                     | WHERE {   wd:Q159821 wdt:P276 ?s .   ?s  |               |                  |            |
+| 2022, along with the year                |                     | wdt:P276 ?country .   ?s wdt:P585 ?year  |               |                  |            |
+|                                          |                     | .   FILTER(YEAR(?year) >= 2008 &&        |               |                  |            |
+|                                          |                     | YEAR(?year) <= 2022) .   SERVICE         |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } } GROUP BY     |               |                  |            |
+|                                          |                     | ?country ?countryLabel ?year ORDER BY    |               |                  |            |
+|                                          |                     | ASC(?year)                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Winter      | gemini_finetune_mcp | SELECT ?event ?eventLabel ?country       |             0 |                4 |          0 |
+| Olympics were held between 2008 and      |                     | ?countryLabel WHERE {   ?event [instance |               |                  |            |
+| 2022, along with the year                |                     | of] wd:Q82414 .   ?event wdt:P17         |               |                  |            |
+|                                          |                     | ?country .   ?event [point in time]      |               |                  |            |
+|                                          |                     | ?time .   FILTER(YEAR(?time) >= 2008 &&  |               |                  |            |
+|                                          |                     | YEAR(?time) <= 2022) .   SERVICE         |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en" . } }             |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Olympics    | gemini_finetune_mcp | SELECT ?country ?countryLabel            |             8 |                8 |          8 |
+| were held between 2008 and 2022, along   |                     | ?pointInTime WHERE {   ?event wdt:P31    |               |                  |            |
+| with the year                            |                     | ?olympicType .   FILTER(?olympicType =   |               |                  |            |
+|                                          |                     | wd:Q159821 || ?olympicType = wd:Q82414)  |               |                  |            |
+|                                          |                     | .   ?event wdt:P17 ?country .   ?event   |               |                  |            |
+|                                          |                     | wdt:P585 ?pointInTime .                  |               |                  |            |
+|                                          |                     | FILTER(YEAR(?pointInTime) >= 2008 &&     |               |                  |            |
+|                                          |                     | YEAR(?pointInTime) <= 2022) .   SERVICE  |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en" . ?country        |               |                  |            |
+|                                          |                     | rdfs:label ?countryLabel } } GROUP BY    |               |                  |            |
+|                                          |                     | ?country ?countryLabel ?pointInTime      |               |                  |            |
+|                                          |                     | ORDER BY ASC(?pointInTime) LIMIT 100     |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| list the countries where the Summer- or  | gemini_finetune_mcp | SELECT ?country ?countryLabel ?year      |             8 |                8 |          8 |
+| Winter Olympics were held between 2008   |                     | WHERE {   { ?event wdt:P31 wd:Q159821 .  |               |                  |            |
+| and 2022, along with the year            |                     | }   UNION   { ?event wdt:P31 wd:Q82414 . |               |                  |            |
+|                                          |                     | }   ?event wdt:P585 ?pointInTime .       |               |                  |            |
+|                                          |                     | FILTER(YEAR(?pointInTime) >= 2008 &&     |               |                  |            |
+|                                          |                     | YEAR(?pointInTime) <= 2022)   ?event     |               |                  |            |
+|                                          |                     | wdt:P17 ?country .                       |               |                  |            |
+|                                          |                     | BIND(YEAR(?pointInTime) AS ?year)        |               |                  |            |
+|                                          |                     | SERVICE wikibase:label { bd:serviceParam |               |                  |            |
+|                                          |                     | wikibase:language "en". ?country         |               |                  |            |
+|                                          |                     | rdfs:label ?countryLabel . } } ORDER BY  |               |                  |            |
+|                                          |                     | ASC(?year)                               |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
+| List of US presidents                    | gemini_mcp          | SELECT ?president ?presidentLabel WHERE  |            45 |               45 |         45 |
+|                                          |                     | {   ?president wdt:P39 wd:Q11696 .       |               |                  |            |
+|                                          |                     | ?president wdt:P31 wd:Q5 .   SERVICE     |               |                  |            |
+|                                          |                     | wikibase:label { bd:serviceParam         |               |                  |            |
+|                                          |                     | wikibase:language "en". } }              |               |                  |            |
++------------------------------------------+---------------------+------------------------------------------+---------------+------------------+------------+
