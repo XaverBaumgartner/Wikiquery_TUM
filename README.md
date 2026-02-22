@@ -2,7 +2,7 @@
 This project was completed as part of the Practical Course 'Data Engineering' within the Data Engineering Research Group at the TUM School of Computation, Information and Technology (Technical University of Munich). For a full explanation, our motivation, the research questions and main findings, please consult the [`Written Report`](</Written Report: Wikiquery.pdf>).
 
 # Result Analysis
-The following is a more detailed description of the results in the [`Written Report`](</Written Report: Wikiquery.pdf>), including explanations and data that shuold be published for the sake of completeness, but would be beyond the scope of the Written Report and/or make it too long.
+The following is a more detailed description of the results in the [`Written Report`](</Written Report: Wikiquery.pdf>), including explanations and data that should be published for the sake of completeness, but would be beyond the scope of the Written Report and/or make it too long.
 
 ---
 
